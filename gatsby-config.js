@@ -24,9 +24,29 @@ module.exports = {
         short_name: "Gatsby",
         start_url: "/",
         // These can be imported once ESM support lands
-        background_color: "#ffe491",
+        // background_color: "#ffe491",
         theme_color: "#004ca3",
         icon: "src/favicon.png",
+      },
+    },
+    {
+      resolve: "@chakra-ui/gatsby-plugin",
+      options: {
+        /**
+         * @property {boolean} [resetCSS=true]
+         * if false, this plugin will not use `<CSSReset />
+         */
+        resetCSS: true,
+        /**
+         * @property {boolean} [isUsingColorMode=true]
+         * if false, this plugin will not use <ColorModeProvider />
+         */
+        isUsingColorMode: true,
+        /**
+         * @property {boolean} [isBaseProvider=false]
+         * if true, will render `<ChakraBaseProvider>`
+         */
+        isBaseProvider: false,
       },
     },
   ],

@@ -4,6 +4,9 @@ import Layout from "../components/layout"
 import * as sections from "../components/sections"
 import Fallback from "../components/fallback"
 import SEOHead from "../components/head"
+import Carousel from "../components/carousel"
+import { Box } from "@chakra-ui/react"
+import { ThemeToggleButton } from "../components/theme-toggle-button"
 
 interface HomepageProps {
   data: {
@@ -22,6 +25,10 @@ export default function Homepage(props: HomepageProps) {
 
   return (
     <Layout>
+      <ThemeToggleButton />
+      <Carousel />
+      hello
+      <Box bg="blue.800">Hellloooooo</Box>
       {homepage.blocks.map((block) => {
         const { id, blocktype, ...componentProps } = block
         const Component = sections[blocktype] || Fallback

@@ -76,7 +76,7 @@ export default function BlogPost(props: BlogPost) {
           )}
           <Space size={5} />
           <div
-            className={styles.blogPost}
+            // className={styles.blogPost}
             dangerouslySetInnerHTML={{
               __html: props.html,
             }}

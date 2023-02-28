@@ -2,10 +2,10 @@ import { globalStyle, globalKeyframes } from "@vanilla-extract/css"
 import { theme } from "./theme.css"
 
 globalStyle("body", {
-  margin: 0,
-  fontFamily: theme.fonts.text,
-  color: theme.colors.text,
-  backgroundColor: theme.colors.background,
+  // margin: 0,
+  // fontFamily: theme.fonts.text,
+  // color: theme.colors.text,
+  // backgroundColor: theme.colors.background,
   WebkitFontSmoothing: "antialiased",
   MozOsxFontSmoothing: "grayscale",
 })
