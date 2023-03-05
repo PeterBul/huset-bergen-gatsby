@@ -49,7 +49,10 @@ export default function StatList(props: StatListProps) {
         <Flex responsive variant="end">
           <Box width="half">
             {props.icon && (
-              <Icon alt={props.icon.alt} image={props.icon.gatsbyImageData} />
+              <Icon
+                alt={props.icon.alt || ""}
+                image={props.icon.gatsbyImageData}
+              />
             )}
             <Heading>
               {props.kicker && <Kicker>{props.kicker}</Kicker>}
@@ -69,7 +72,7 @@ export default function StatList(props: StatListProps) {
             {props.image && (
               <Nudge right={5} bottom={5}>
                 <GatsbyImage
-                  alt={props.image.alt}
+                  alt={props.image.alt || ""}
                   image={getImage(props.image.gatsbyImageData)}
                 />
               </Nudge>

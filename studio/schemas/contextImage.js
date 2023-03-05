@@ -26,10 +26,22 @@ export default {
     and people that for some reason not can see the image`,
     },
     {
+      title: "Heading",
+      name: "heading",
+      type: "string",
+    },
+    {
       title: "Description",
       name: "desc",
       type: "string",
       description: "Text that will accompany image",
+      rows: 20,
+    },
+    {
+      title: "Link",
+      name: "link",
+      type: "reference",
+      to: [{ type: "homepageLink" }],
     },
   ],
 }

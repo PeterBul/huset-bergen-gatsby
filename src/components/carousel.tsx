@@ -1,6 +1,7 @@
-import React, { useCallback, useEffect, useRef } from "react"
-import { Box, Heading, Image, Text } from "@chakra-ui/react"
+import React, { useCallback, useEffect, useLayoutEffect, useRef } from "react"
+import { Flex, Heading, Text } from "@chakra-ui/react"
 import { Swiper, SwiperSlide } from "swiper/react"
+import { Button, Image } from "./ui"
 
 import "swiper/css"
 import "swiper/css/navigation"
@@ -9,42 +10,34 @@ import { Autoplay, Keyboard, Navigation } from "swiper"
 import { useAnimationControls } from "framer-motion"
 import { MotionDiv } from "./motion-div"
 import { ImageItem } from "./carsousel-section"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
-
-const images = [
-  {
-    key: "programmer",
-    src: "https://img.freepik.com/free-photo/rear-view-programmer-working-all-night-long_1098-18697.jpg?w=1380&t=st=1677423090~exp=1677423690~hmac=1ec09376842f31dc30f5edab8b2e7c1740f0fcfa8ca851f9ea1e2da431cdd9bc",
-    alt: "Programmer",
-  },
-  {
-    key: "laptop",
-    src: "https://img.freepik.com/free-vector/laptop-with-program-code-isometric-icon-software-development-programming-applications-dark-neon_39422-971.jpg?w=1060&t=st=1677423127~exp=1677423727~hmac=dfabb47a330676aad539ef4e206430372f73e86b4d5f44cc677f18e15bbb0c8b",
-    alt: "Laptop",
-  },
-  {
-    key: "cyberpunk",
-    src: "https://img.freepik.com/free-photo/cool-geometric-triangular-hallway-3d-rendering_181624-11762.jpg?w=1480&t=st=1677423164~exp=1677423764~hmac=d8d67419d2be8592253a51c6d0e01327dc20a4c74e49d6f1edbf5a5a9ce022e5",
-    alt: "Cyberpunk",
-  },
-]
+import styled from "@emotion/styled"
+import { GatsbyImage } from "gatsby-plugin-image"
 
 interface IProps {
   images: ImageItem[]
 }
+
+const StyledButton = styled(Button)`
+  margin-top: 20px;
+`
+
+const StyledSwiper = styled(Swiper)`
+  z-index: 0 !important;
+`
 
 const Carousel = (props: IProps) => {
   const { images } = props
   const controls = useAnimationControls()
   const mounted = useRef(false)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     mounted.current = true
 
     return () => {
       mounted.current = false
     }
   }, [])
+
   const runAnimation = useCallback(() => {
     if (mounted.current) {
       controls.start({
@@ -56,14 +49,16 @@ const Carousel = (props: IProps) => {
   }, [controls])
 
   useEffect(() => {
-    runAnimation()
+    if (mounted.current) {
+      runAnimation()
+    }
     return () => {
       controls.stop()
     }
   }, [controls, runAnimation])
 
   return (
-    <Swiper
+    <StyledSwiper
       navigation={true}
       modules={[Navigation, Keyboard, Autoplay]}
       keyboard={{ enabled: true, onlyInViewport: true }}
@@ -72,33 +67,41 @@ const Carousel = (props: IProps) => {
       onSlideChangeTransitionStart={(s) => {
         runAnimation()
       }}
+      speed={600}
     >
       {images.map((image, i) => (
-        <SwiperSlide key={i}>
-          <Box display="flex" justifyContent="center">
-            <Box display="flex">
+        <SwiperSlide key={i} style={{ height: "unset" }}>
+          <Flex justifyContent="center" height="100%">
+            <Flex alignItems="center" justifyContent="center">
               <GatsbyImage
                 alt={image.alt}
-                image={getImage(image.image.gatsbyImageData)}
+                image={image.image.gatsbyImageData}
+                backgroundColor="transparent"
               />
-              <MotionDiv
-                animate={controls}
-                initial={{ y: 10, opacity: 0 }}
-                // animate={{ y: 0, opacity: 1 }}
-                // @ts-ignore
-                transition={{ duration: 0.8, delay: 0 }}
-                minW="200px"
-                m="50px"
-              >
-                <Heading as="h3" variant="section-title">
-                  Some heading aaaa
-                </Heading>
-              </MotionDiv>
-            </Box>
-          </Box>
+              {(image.heading || image.desc) && (
+                <MotionDiv
+                  animate={controls}
+                  initial={{ y: 10, opacity: 0 }}
+                  // animate={{ y: 0, opacity: 1 }}
+                  // @ts-ignore
+                  transition={{ duration: 0.8, delay: 0 }}
+                  m="50px"
+                  maxW="300px"
+                >
+                  <Heading as="h3">{image.heading}</Heading>
+                  <Text>{image.desc}</Text>
+                  {image.link && (
+                    <StyledButton href={image.link.href} variant="primary">
+                      {image.link.text}
+                    </StyledButton>
+                  )}
+                </MotionDiv>
+              )}
+            </Flex>
+          </Flex>
         </SwiperSlide>
       ))}
-    </Swiper>
+    </StyledSwiper>
   )
 }
 

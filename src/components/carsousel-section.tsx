@@ -1,12 +1,15 @@
 import { graphql } from "gatsby"
 import * as React from "react"
 import Carousel from "./carousel"
-import { ChakraSection, Container, HomepageImage } from "./ui"
+import { HomepageImage, HomepageLink } from "./ui"
 
 export interface ImageItem {
   id: string
   alt: string
   image: HomepageImage
+  heading: string
+  desc: string
+  link: HomepageLink
 }
 
 export interface CarouselProps {
@@ -14,14 +17,7 @@ export interface CarouselProps {
 }
 
 export default function CarouselSection(props: CarouselProps) {
-  console.log("Props", props)
-  return (
-    <ChakraSection>
-      <Container>
-        <Carousel images={props.images} />
-      </Container>
-    </ChakraSection>
-  )
+  return <Carousel images={props.images} />
 }
 
 export const query = graphql`
@@ -35,6 +31,12 @@ export const query = graphql`
         id
         gatsbyImageData
         alt
+      }
+      heading
+      desc
+      link {
+        text
+        href
       }
     }
   }

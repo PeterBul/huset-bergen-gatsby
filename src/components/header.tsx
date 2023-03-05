@@ -2,8 +2,6 @@ import * as React from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import { Menu, X } from "react-feather"
 import {
-  Container,
-  Flex,
   FlexList,
   Space,
   NavLink,
@@ -21,6 +19,8 @@ import {
 } from "./header.css"
 import NavItemGroup, { NavItemGroupNavItem } from "./nav-item-group"
 import BrandLogo from "./brand-logo"
+import { ThemeToggleButton } from "./theme-toggle-button"
+import { Box, Container, Flex } from "@chakra-ui/react"
 
 type NavItem = {
   id: string
@@ -100,9 +100,13 @@ export default function Header() {
 
   return (
     <header>
-      <Container className={desktopHeaderNavWrapper}>
-        <Space size={2} />
-        <Flex variant="spaceBetween">
+      <Container maxW="container.xl" className={desktopHeaderNavWrapper}>
+        <Flex
+          alignItems="center"
+          justifyContent="space-between"
+          padding="4"
+          width="100%"
+        >
           <NavLink to="/">
             <VisuallyHidden>Home</VisuallyHidden>
             <BrandLogo />
@@ -124,12 +128,15 @@ export default function Header() {
                 ))}
             </FlexList>
           </nav>
-          <div>{cta && <Button to={cta.href}>{cta.text}</Button>}</div>
+          <ThemeToggleButton />
         </Flex>
       </Container>
-      <Container className={mobileHeaderNavWrapper[isOpen ? "open" : "closed"]}>
+      <Container
+        maxW="container.md"
+        className={mobileHeaderNavWrapper[isOpen ? "open" : "closed"]}
+      >
         <Space size={2} />
-        <Flex variant="spaceBetween">
+        <Flex justifyContent="space-between">
           <span
             className={
               mobileNavSVGColorWrapper[isOpen ? "reversed" : "primary"]

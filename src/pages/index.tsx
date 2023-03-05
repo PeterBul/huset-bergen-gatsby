@@ -4,8 +4,6 @@ import Layout from "../components/layout"
 import * as sections from "../components/sections"
 import Fallback from "../components/fallback"
 import SEOHead from "../components/head"
-import Carousel from "../components/carousel"
-import { Box } from "@chakra-ui/react"
 import { ThemeToggleButton } from "../components/theme-toggle-button"
 import { HeroProps } from "../components/hero"
 
@@ -38,9 +36,6 @@ export default function Homepage(props: HomepageProps) {
 
   return (
     <Layout>
-      <ThemeToggleButton />
-      <Box bg="blue.800">Hellloooooo</Box>
-      <sections.HomepageHero {...props.data.homepageHero} />
       {homepage.blocks.map((block) => {
         const { id, blocktype, ...componentProps } = block
         const Component = sections[blocktype] || Fallback
@@ -66,6 +61,7 @@ export const query = graphql`
       blocks: content {
         id
         blocktype
+        ...HomepageHeroContent
         ...HomepageFeatureListContent
         ...HomepageCtaContent
         ...HomepageLogoListContent
@@ -78,17 +74,3 @@ export const query = graphql`
     }
   }
 `
-
-// allSanityHomepageCarousel {
-//   nodes {
-//     text
-//     images {
-//       image {
-//         asset {
-//           url
-//         }
-//       }
-//       alt
-//     }
-//   }
-// }

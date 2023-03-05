@@ -28,7 +28,7 @@ function Product(props: ProductProps) {
     <Box center>
       {props.image && (
         <Icon
-          alt={props.image.alt}
+          alt={props.image.alt || ""}
           image={props.image.gatsbyImageData}
           size="large"
         />
