@@ -8,6 +8,8 @@ import "swiper/css/navigation"
 import { Autoplay, Keyboard, Navigation } from "swiper"
 import { useAnimationControls } from "framer-motion"
 import { MotionDiv } from "./motion-div"
+import { ImageItem } from "./carsousel-section"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 const images = [
   {
@@ -26,7 +28,13 @@ const images = [
     alt: "Cyberpunk",
   },
 ]
-const Carousel = () => {
+
+interface IProps {
+  images: ImageItem[]
+}
+
+const Carousel = (props: IProps) => {
+  const { images } = props
   const controls = useAnimationControls()
   const mounted = useRef(false)
 
@@ -65,16 +73,13 @@ const Carousel = () => {
         runAnimation()
       }}
     >
-      {images.map((image) => (
-        <SwiperSlide key={image.key}>
+      {images.map((image, i) => (
+        <SwiperSlide key={i}>
           <Box display="flex" justifyContent="center">
             <Box display="flex">
-              <Image
-                src={image.src}
+              <GatsbyImage
                 alt={image.alt}
-                maxH={500}
-                width="100%"
-                fit="scale-down"
+                image={getImage(image.image.gatsbyImageData)}
               />
               <MotionDiv
                 animate={controls}
@@ -83,9 +88,10 @@ const Carousel = () => {
                 // @ts-ignore
                 transition={{ duration: 0.8, delay: 0 }}
                 minW="200px"
+                m="50px"
               >
                 <Heading as="h3" variant="section-title">
-                  Some heading
+                  Some heading aaaa
                 </Heading>
               </MotionDiv>
             </Box>

@@ -7,7 +7,16 @@ import SEOHead from "../components/head"
 import Carousel from "../components/carousel"
 import { Box } from "@chakra-ui/react"
 import { ThemeToggleButton } from "../components/theme-toggle-button"
+import { HeroProps } from "../components/hero"
 
+export interface IImage {
+  image: {
+    asset: {
+      url: string
+    }
+  }
+  alt: string
+}
 interface HomepageProps {
   data: {
     homepage: {
@@ -16,6 +25,10 @@ interface HomepageProps {
       description: string
       image: { id: string; url: string }
       blocks: sections.HomepageBlock[]
+    }
+    homepageHero: HeroProps
+    allSanityHomepageCarousel: {
+      nodes: { images: IImage[]; alt: string }[]
     }
   }
 }
@@ -26,9 +39,8 @@ export default function Homepage(props: HomepageProps) {
   return (
     <Layout>
       <ThemeToggleButton />
-      <Carousel />
-      hello
       <Box bg="blue.800">Hellloooooo</Box>
+      <sections.HomepageHero {...props.data.homepageHero} />
       {homepage.blocks.map((block) => {
         const { id, blocktype, ...componentProps } = block
         const Component = sections[blocktype] || Fallback
@@ -54,7 +66,6 @@ export const query = graphql`
       blocks: content {
         id
         blocktype
-        ...HomepageHeroContent
         ...HomepageFeatureListContent
         ...HomepageCtaContent
         ...HomepageLogoListContent
@@ -62,7 +73,22 @@ export const query = graphql`
         ...HomepageBenefitListContent
         ...HomepageStatListContent
         ...HomepageProductListContent
+        ...HomepageCarouselContent
       }
     }
   }
 `
+
+// allSanityHomepageCarousel {
+//   nodes {
+//     text
+//     images {
+//       image {
+//         asset {
+//           url
+//         }
+//       }
+//       alt
+//     }
+//   }
+// }

@@ -10,6 +10,7 @@ import isAbsoluteURL from "is-absolute-url"
 import * as React from "react"
 import * as styles from "./ui.css"
 import { Radii, SpaceTokens } from "../theme.css"
+import { Box as ChakraBox } from "@chakra-ui/react"
 
 export const cx = (...args: (string | undefined)[]) =>
   args.filter(Boolean).join(" ")
@@ -23,7 +24,7 @@ export interface HomepageLink {
 
 export interface HomepageImage {
   id: string
-  alt: string
+  alt: string | null
   gatsbyImageData: IGatsbyImageData
   url: string
 }
@@ -181,6 +182,10 @@ interface SectionProps extends BoxProps {}
 
 export function Section(props: WithChildren<SectionProps>) {
   return <Box as="section" className={styles.section} {...props} />
+}
+
+export function ChakraSection(props: WithChildren<SectionProps>) {
+  return <ChakraBox as="section" className={styles.section} {...props} />
 }
 
 interface TextProps extends BaseProps {

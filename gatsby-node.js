@@ -56,9 +56,21 @@ exports.createSchemaCustomization = async ({ actions }) => {
 
   // abstract interfaces
   actions.createTypes(/* GraphQL */ `
+    type allHomepageCarousel implements Node {
+      text: String
+    }
+
     interface HomepageBlock implements Node {
       id: ID!
       blocktype: String
+    }
+
+    interface HomepageCarousel implements Node & HomepageBlock {
+      id: ID!
+      blocktype: String
+      heading: String
+      text: String
+      images: [ContextImage]
     }
 
     interface HomepageLink implements Node {
@@ -139,6 +151,13 @@ exports.createSchemaCustomization = async ({ actions }) => {
       id: ID!
       image: HomepageImage
       alt: String
+    }
+
+    interface ContextImage implements Node {
+      id: ID!
+      image: HomepageImage
+      alt: String
+      desc: String
     }
 
     interface HomepageLogoList implements Node & HomepageBlock {
@@ -356,6 +375,14 @@ exports.createSchemaCustomization = async ({ actions }) => {
       links: [HomepageLink] @link
     }
 
+    type SanityHomepageCarousel implements Node & HomepageCarousel & HomepageBlock
+      @dontInfer {
+      id: ID!
+      blocktype: String @blocktype
+      heading: String
+      text: String
+    }
+
     type SanityHomepageFeature implements Node & HomepageFeature & HomepageBlock {
       id: ID!
       blocktype: String @blocktype
@@ -389,6 +416,13 @@ exports.createSchemaCustomization = async ({ actions }) => {
       id: ID!
       image: HomepageImage @link(by: "id", from: "image.asset._ref")
       alt: String
+    }
+
+    type SanityContextImage implements Node & ContextImage {
+      id: ID!
+      image: HomepageImage @link(by: "id", from: "image.asset._ref")
+      alt: String
+      desc: String
     }
 
     type SanityHomepageLogoList implements Node & HomepageLogoList & HomepageBlock {
@@ -580,4 +614,3 @@ exports.createPages = ({ actions }) => {
     component: require.resolve("./src/components/footer.tsx"),
   })
 }
-      
