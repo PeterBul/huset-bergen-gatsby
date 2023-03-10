@@ -66,12 +66,21 @@ const config = {
   useSystemColorMode: true,
 }
 
+const sizes = {
+  icon: {
+    sm: "24px",
+    md: "32px",
+    lg: "64px",
+  },
+}
+
 const theme = extendTheme({
   config,
   styles,
   components,
   colors,
   fonts,
+  sizes,
 })
 
 export default theme

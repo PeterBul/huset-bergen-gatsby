@@ -35,7 +35,7 @@ export default function Feature(props: FeatureDataProps & FeatureProps) {
           <Box width="half" order={props.flip ? 1 : null}>
             {props.image && (
               <GatsbyImage
-                alt={props.image.alt}
+                alt={props.image.alt || ""}
                 image={getImage(props.image.gatsbyImageData)}
               />
             )}

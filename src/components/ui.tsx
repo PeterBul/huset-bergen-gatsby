@@ -10,6 +10,7 @@ import isAbsoluteURL from "is-absolute-url"
 import * as React from "react"
 import * as styles from "./ui.css"
 import { Radii, SpaceTokens } from "../theme.css"
+import { Box as ChakraBox, ChakraProps } from "@chakra-ui/react"
 
 export const cx = (...args: (string | undefined)[]) =>
   args.filter(Boolean).join(" ")
@@ -23,7 +24,7 @@ export interface HomepageLink {
 
 export interface HomepageImage {
   id: string
-  alt: string
+  alt: string | null
   gatsbyImageData: IGatsbyImageData
   url: string
 }
@@ -183,6 +184,10 @@ export function Section(props: WithChildren<SectionProps>) {
   return <Box as="section" className={styles.section} {...props} />
 }
 
+export function ChakraSection(props: WithChildren<SectionProps>) {
+  return <ChakraBox as="section" className={styles.section} {...props} />
+}
+
 interface TextProps extends BaseProps {
   variant?: styles.TextVariants
   center?: boolean
@@ -327,6 +332,14 @@ export function Avatar({ alt, image }: AvatarProps) {
   )
 }
 
+export interface ImageProps extends ChakraProps {
+  alt: string
+  image: ImageDataLike
+}
+export function Image({ alt, image }: ImageProps) {
+  return <GatsbyImage alt={alt} image={getImage(image)} />
+}
+
 interface LogoProps extends GatsbyImageProps {
   size: styles.LogoSizes
 }
@@ -341,17 +354,19 @@ export function Logo({ alt, image, size = "small" }: LogoProps) {
   )
 }
 
-interface IconProps extends GatsbyImageProps {
-  size?: styles.IconSizes
+type IconSize = "icon.sm" | "icon.md" | "icon.lg"
+
+interface IconProps extends ChakraProps {
+  alt: GatsbyImageProps["alt"]
+  image: GatsbyImageProps["image"]
+  size?: IconSize
 }
 
-export function Icon({ alt, image, size = "medium" }: IconProps) {
+export function Icon({ alt, image, size = "icon.md" }: IconProps) {
   return (
-    <GatsbyImage
-      alt={alt}
-      image={getImage(image)}
-      className={styles.icons[size]}
-    />
+    <ChakraBox boxSize={size}>
+      <GatsbyImage alt={alt} image={getImage(image)} />
+    </ChakraBox>
   )
 }
 

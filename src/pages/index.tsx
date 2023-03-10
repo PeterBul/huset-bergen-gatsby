@@ -4,10 +4,17 @@ import Layout from "../components/layout"
 import * as sections from "../components/sections"
 import Fallback from "../components/fallback"
 import SEOHead from "../components/head"
-import Carousel from "../components/carousel"
-import { Box } from "@chakra-ui/react"
 import { ThemeToggleButton } from "../components/theme-toggle-button"
+import { HeroProps } from "../components/hero"
 
+export interface IImage {
+  image: {
+    asset: {
+      url: string
+    }
+  }
+  alt: string
+}
 interface HomepageProps {
   data: {
     homepage: {
@@ -17,6 +24,10 @@ interface HomepageProps {
       image: { id: string; url: string }
       blocks: sections.HomepageBlock[]
     }
+    homepageHero: HeroProps
+    allSanityHomepageCarousel: {
+      nodes: { images: IImage[]; alt: string }[]
+    }
   }
 }
 
@@ -25,10 +36,6 @@ export default function Homepage(props: HomepageProps) {
 
   return (
     <Layout>
-      <ThemeToggleButton />
-      <Carousel />
-      hello
-      <Box bg="blue.800">Hellloooooo</Box>
       {homepage.blocks.map((block) => {
         const { id, blocktype, ...componentProps } = block
         const Component = sections[blocktype] || Fallback
@@ -62,6 +69,7 @@ export const query = graphql`
         ...HomepageBenefitListContent
         ...HomepageStatListContent
         ...HomepageProductListContent
+        ...HomepageCarouselContent
       }
     }
   }

@@ -37,6 +37,9 @@ import aboutStatList from "./aboutStatList"
 import aboutProfile from "./aboutProfile"
 import aboutLeadership from "./aboutLeadership"
 import aboutLogoList from "./aboutLogoList"
+import homepageCarousel from "./homepageCarousel"
+import altImage from "./altImage"
+import contextImage from "./contextImage"
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -46,6 +49,7 @@ export default createSchema({
   // to the ones provided by any plugins that are installed
   types: schemaTypes.concat([
     homepage,
+    homepageCarousel,
     homepageLink,
     homepageHero,
     homepageFeature,
@@ -61,6 +65,9 @@ export default createSchema({
     homepageStatList,
     homepageProduct,
     homepageProductList,
+    // elements
+    altImage,
+    contextImage,
     // layout
     navItem,
     navItemGroup,

@@ -24,7 +24,7 @@ function Benefit(props: BenefitProps) {
     <Box as="li" width="third" padding={4} paddingY={3}>
       {props.image && (
         <Icon
-          alt={props.image.alt}
+          alt={props.image.alt || ""}
           image={props.image.gatsbyImageData}
           size="small"
         />
