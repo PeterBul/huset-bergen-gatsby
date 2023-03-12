@@ -1,8 +1,8 @@
-const sanityBlockContentToHTML = require("@sanity/block-content-to-html")
+const sanityBlockContentToHTML = require('@sanity/block-content-to-html')
 
-exports.createSchemaCustomization = async ({ actions }) => {
+exports.createSchemaCustomization = async ({ actions, schema }) => {
   actions.createFieldExtension({
-    name: "blocktype",
+    name: 'blocktype',
     extend(options) {
       return {
         resolve(source) {
@@ -16,9 +16,9 @@ exports.createSchemaCustomization = async ({ actions }) => {
   })
 
   actions.createFieldExtension({
-    name: "sanityBlockContent",
+    name: 'sanityBlockContent',
     args: {
-      fieldName: "String",
+      fieldName: 'String',
     },
     extend(options) {
       return {
@@ -33,21 +33,21 @@ exports.createSchemaCustomization = async ({ actions }) => {
   })
 
   actions.createFieldExtension({
-    name: "navItemType",
+    name: 'navItemType',
     args: {
       name: {
-        type: "String!",
-        defaultValue: "Link",
+        type: 'String!',
+        defaultValue: 'Link',
       },
     },
     extend(options) {
       return {
         resolve() {
           switch (options.name) {
-            case "Group":
-              return "Group"
+            case 'Group':
+              return 'Group'
             default:
-              return "Link"
+              return 'Link'
           }
         },
       }
@@ -71,6 +71,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
       heading: String
       text: String
       images: [ContextImage]
+      slides: [HomepageHero]
     }
 
     interface HomepageLink implements Node {
@@ -110,7 +111,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
     interface HomepageHero implements Node & HomepageBlock {
       id: ID!
       blocktype: String
-      heading: String!
+      heading: String
       kicker: String
       subhead: String
       image: HomepageImage
@@ -369,7 +370,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
       id: ID!
       _type: String
       blocktype: String @blocktype
-      heading: String!
+      heading: String
       kicker: String
       subhead: String
       image: HomepageImage @link(by: "id", from: "image.asset._ref")
@@ -610,11 +611,11 @@ exports.createSchemaCustomization = async ({ actions }) => {
 exports.createPages = ({ actions }) => {
   const { createSlice } = actions
   createSlice({
-    id: "header",
-    component: require.resolve("./src/components/header.tsx"),
+    id: 'header',
+    component: require.resolve('./src/components/header.tsx'),
   })
   createSlice({
-    id: "footer",
-    component: require.resolve("./src/components/footer.tsx"),
+    id: 'footer',
+    component: require.resolve('./src/components/footer.tsx'),
   })
 }

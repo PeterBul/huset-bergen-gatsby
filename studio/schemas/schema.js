@@ -1,50 +1,49 @@
 // First, we must import the schema creator
-import createSchema from "part:@sanity/base/schema-creator"
+import createSchema from 'part:@sanity/base/schema-creator'
 
 // Then import schema types from any plugins that might expose them
-import schemaTypes from "all:part:@sanity/base/schema-type"
+import schemaTypes from 'all:part:@sanity/base/schema-type'
 
-import homepage from "./homepage"
-import homepageLink from "./homepageLink"
-import homepageHero from "./homepageHero"
-import homepageFeature from "./homepageFeature"
-import homepageFeatureList from "./homepageFeatureList"
-import homepageCta from "./homepageCta"
-import homepageLogo from "./homepageLogo"
-import homepageLogoList from "./homepageLogoList"
-import homepageTestimonial from "./homepageTestimonial"
-import homepageTestimonialList from "./homepageTestimonialList"
-import homepageBenefit from "./homepageBenefit"
-import homepageBenefitList from "./homepageBenefitList"
-import homepageStat from "./homepageStat"
-import homepageStatList from "./homepageStatList"
-import homepageProduct from "./homepageProduct"
-import homepageProductList from "./homepageProductList"
+import homepage from './homepage'
+import homepageLink from './homepageLink'
+import homepageHero from './homepageHero'
+import homepageFeature from './homepageFeature'
+import homepageFeatureList from './homepageFeatureList'
+import homepageCta from './homepageCta'
+import homepageLogo from './homepageLogo'
+import homepageLogoList from './homepageLogoList'
+import homepageTestimonial from './homepageTestimonial'
+import homepageTestimonialList from './homepageTestimonialList'
+import homepageBenefit from './homepageBenefit'
+import homepageBenefitList from './homepageBenefitList'
+import homepageStat from './homepageStat'
+import homepageStatList from './homepageStatList'
+import homepageProduct from './homepageProduct'
+import homepageProductList from './homepageProductList'
 
-import navItem from "./navItem"
-import navItemGroup from "./navItemGroup"
-import socialLink from "./socialLink"
-import layoutHeader from "./layoutHeader"
-import layoutFooter from "./layoutFooter"
-import layout from "./layout"
+import navItem from './navItem'
+import navItemGroup from './navItemGroup'
+import socialLink from './socialLink'
+import layoutHeader from './layoutHeader'
+import layoutFooter from './layoutFooter'
+import layout from './layout'
 
-import page from "./page"
+import page from './page'
 
-import aboutPage from "./aboutPage"
-import aboutHero from "./aboutHero"
-import aboutStat from "./aboutStat"
-import aboutStatList from "./aboutStatList"
-import aboutProfile from "./aboutProfile"
-import aboutLeadership from "./aboutLeadership"
-import aboutLogoList from "./aboutLogoList"
-import homepageCarousel from "./homepageCarousel"
-import altImage from "./altImage"
-import contextImage from "./contextImage"
+import aboutPage from './aboutPage'
+import aboutHero from './aboutHero'
+import aboutStat from './aboutStat'
+import aboutStatList from './aboutStatList'
+import aboutProfile from './aboutProfile'
+import aboutLeadership from './aboutLeadership'
+import aboutLogoList from './aboutLogoList'
+import homepageCarousel from './homepageCarousel'
+import contextImage from './contextImage'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
   // We name our schema
-  name: "default",
+  name: 'default',
   // Then proceed to concatenate our document type
   // to the ones provided by any plugins that are installed
   types: schemaTypes.concat([
@@ -66,7 +65,6 @@ export default createSchema({
     homepageProduct,
     homepageProductList,
     // elements
-    altImage,
     contextImage,
     // layout
     navItem,

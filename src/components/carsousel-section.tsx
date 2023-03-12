@@ -1,40 +1,38 @@
-import { graphql } from "gatsby"
-import * as React from "react"
-import Carousel from "./carousel"
-import { HomepageImage, HomepageLink } from "./ui"
+import { graphql } from 'gatsby'
+import * as React from 'react'
+import Carousel from './carousel'
+import { HomepageImage, HomepageLink } from './ui'
 
 export interface ImageItem {
   id: string
-  alt: string
   image: HomepageImage
   heading: string
-  desc: string
-  link: HomepageLink
+  text: string
+  links: HomepageLink[]
 }
 
 export interface CarouselProps {
-  images: ImageItem[]
+  slides: ImageItem[]
 }
 
 export default function CarouselSection(props: CarouselProps) {
-  return <Carousel images={props.images} />
+  return <Carousel slides={props.slides} />
 }
 
 export const query = graphql`
   fragment HomepageCarouselContent on HomepageCarousel {
     id
     heading
-    images {
+    slides {
       id
-      alt
       image {
         id
         gatsbyImageData
         alt
       }
       heading
-      desc
-      link {
+      text
+      links {
         text
         href
       }
