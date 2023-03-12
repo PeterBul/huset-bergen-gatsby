@@ -1,19 +1,25 @@
-import { Link as GatsbyLink } from "gatsby"
+import { Link as GatsbyLink } from 'gatsby'
 import {
   GatsbyImage,
   GatsbyImageProps,
   getImage,
   IGatsbyImageData,
   ImageDataLike,
-} from "gatsby-plugin-image"
-import isAbsoluteURL from "is-absolute-url"
-import * as React from "react"
-import * as styles from "./ui.css"
-import { Radii, SpaceTokens } from "../theme.css"
-import { Box as ChakraBox, ChakraProps } from "@chakra-ui/react"
+} from 'gatsby-plugin-image'
+import isAbsoluteURL from 'is-absolute-url'
+import * as React from 'react'
+import * as styles from './ui.css'
+import { Radii, SpaceTokens } from '../theme.css'
+import {
+  Box as ChakraBox,
+  ChakraProps,
+  PropsOf,
+  Text as ChakraText,
+  Button as ChakraButton,
+} from '@chakra-ui/react'
 
 export const cx = (...args: (string | undefined)[]) =>
-  args.filter(Boolean).join(" ")
+  args.filter(Boolean).join(' ')
 
 export interface HomepageLink {
   id: string
@@ -37,7 +43,7 @@ interface BaseProps {
 }
 
 export function Base({
-  as: Component = "div",
+  as: Component = 'div',
   cx: _cx = [],
   className,
   ...props
@@ -50,7 +56,7 @@ interface ContainerProps extends BaseProps {
 }
 
 export function Container({
-  width = "normal",
+  width = 'normal',
   ...props
 }: WithChildren<ContainerProps>) {
   return <Base cx={[styles.containers[width]]} {...props} />
@@ -106,7 +112,7 @@ interface BoxProps extends BaseProps {
 }
 
 export function Box({
-  width = "full",
+  width = 'full',
   background,
   padding,
   paddingY,
@@ -144,10 +150,10 @@ export function List(props) {
 }
 
 interface SpaceProps extends BaseProps {
-  size?: SpaceTokens | "auto"
+  size?: SpaceTokens | 'auto'
 }
 
-export function Space({ size = "auto", ...props }: SpaceProps) {
+export function Space({ size = 'auto', ...props }: SpaceProps) {
   return <Base cx={[styles.margin[size]]} {...props} />
 }
 
@@ -195,7 +201,7 @@ interface TextProps extends BaseProps {
 }
 
 export function Text({
-  variant = "body",
+  variant = 'body',
   center = false,
   bold = false,
   ...props
@@ -212,12 +218,12 @@ export function Text({
   )
 }
 
-export function SuperHeading({ ...props }) {
-  return <Text as="h1" variant="superHeading" {...props} />
+export function SuperHeading({ ...props }: PropsOf<typeof ChakraText>) {
+  return <ChakraText as="h1" variant="superHeading" {...props} />
 }
 
-export function Heading({ ...props }) {
-  return <Text as="h2" variant="heading" {...props} />
+export function Heading({ ...props }: PropsOf<typeof ChakraText>) {
+  return <ChakraText as="h2" variant="heading" {...props} />
 }
 
 export function Subhead({ ...props }) {
@@ -234,7 +240,7 @@ interface LinkProps extends BaseProps {
 }
 
 export function Link({ to, href, ...props }: WithChildren<LinkProps>) {
-  const url = href || to || ""
+  const url = href || to || ''
   if (isAbsoluteURL(url)) {
     return (
       // eslint-disable-next-line jsx-a11y/anchor-has-content
@@ -258,11 +264,8 @@ interface ButtonProps extends BaseProps {
   to?: string
 }
 
-export function Button({
-  variant = "primary",
-  ...props
-}: WithChildren<ButtonProps>) {
-  return <Base as={Link} cx={[styles.buttons[variant]]} {...props} />
+export function Button({ ...props }: PropsOf<typeof ChakraButton>) {
+  return <ChakraButton as={Link} {...props} />
 }
 
 interface ButtonListProps extends BaseProps {
@@ -276,11 +279,11 @@ export function ButtonList({
   reversed = false,
   ...props
 }: ButtonListProps) {
-  const getVariant = (i): styles.ButtonVariants => {
+  const getVariant = (i) => {
     if (reversed) {
-      return i === 0 ? "reversed" : "linkReversed"
+      return i === 0 ? 'reversed' : 'linkReversed'
     }
-    return i === 0 ? "primary" : "link"
+    return i === 0 ? 'solid' : 'ghost'
   }
   return (
     <FlexList marginY={4} {...props}>
@@ -344,7 +347,7 @@ interface LogoProps extends GatsbyImageProps {
   size: styles.LogoSizes
 }
 
-export function Logo({ alt, image, size = "small" }: LogoProps) {
+export function Logo({ alt, image, size = 'small' }: LogoProps) {
   return (
     <GatsbyImage
       alt={alt}
@@ -354,15 +357,15 @@ export function Logo({ alt, image, size = "small" }: LogoProps) {
   )
 }
 
-type IconSize = "icon.sm" | "icon.md" | "icon.lg"
+type IconSize = 'icon.sm' | 'icon.md' | 'icon.lg'
 
 interface IconProps extends ChakraProps {
-  alt: GatsbyImageProps["alt"]
-  image: GatsbyImageProps["image"]
+  alt: GatsbyImageProps['alt']
+  image: GatsbyImageProps['image']
   size?: IconSize
 }
 
-export function Icon({ alt, image, size = "icon.md" }: IconProps) {
+export function Icon({ alt, image, size = 'icon.md' }: IconProps) {
   return (
     <ChakraBox boxSize={size}>
       <GatsbyImage alt={alt} image={getImage(image)} />
