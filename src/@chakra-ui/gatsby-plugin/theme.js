@@ -1,4 +1,4 @@
-import { extendTheme } from '@chakra-ui/react'
+import { baseTheme, extendTheme } from '@chakra-ui/react'
 import { mode } from '@chakra-ui/theme-tools'
 
 // const lightBg = "#f0e7db"
@@ -11,13 +11,73 @@ const darkFg = '#ffffff'
 const styles = {
   global: (props) => ({
     body: {
+      fontSize: baseTheme.fontSizes['lg'],
       bg: mode(lightBg, darkBg)(props),
       color: mode(lightFg, darkFg)(props),
     },
   }),
 }
 
+const fonts = {
+  // heading: 'M PLUS Rounded 1c'
+  heading: '"DM Sans", sans-serif',
+  body: '"DM Sans", sans-serif',
+  mono: 'DM Mono, Menlo, monospace',
+}
+
 const components = {
+  Button: {
+    baseStyle: {
+      display: 'inline-flex',
+      textDecoration: 'none',
+      fontWeight: baseTheme.fontWeights.bold,
+      fontSize: baseTheme.fontSizes[2],
+      lineHeight: baseTheme.lineHeights.solid,
+      paddingTop: baseTheme.space[3],
+      paddingBottom: baseTheme.space[3],
+      paddingLeft: baseTheme.space[3],
+      paddingRight: baseTheme.space[3],
+      borderRadius: baseTheme.radii.button,
+    },
+    variants: {
+      primary: (props) => {
+        console.log(props)
+        return {
+          color: mode(lightBg, darkBg)(props),
+          backgroundColor: props.theme.colors.primary,
+          _hover: {
+            backgroundColor: props.theme.colors.active,
+          },
+          _focus: {
+            backgroundColor: props.theme.colors.active,
+          },
+        }
+      },
+      reversed: (props) => ({
+        color: props.theme.colors.primary,
+        backgroundColor: props.theme.colors.background,
+        ':hover': {
+          color: props.theme.colors.background,
+          backgroundColor: props.theme.colors.active,
+        },
+        ':focus': {
+          color: props.theme.colors.background,
+          backgroundColor: props.theme.colors.active,
+        },
+      }),
+      link: (props) => ({
+        textDecoration: 'none',
+        color: 'inherit',
+        backgroundColor: 'transparent',
+        ':hover': {
+          backgroundColor: props.theme.colors.muted,
+        },
+        ':focus': {
+          backgroundColor: props.theme.colors.muted,
+        },
+      }),
+    },
+  },
   Heading: {
     variants: {
       'section-title': {
@@ -37,16 +97,38 @@ const components = {
       textUnderlineOffset: 3,
     }),
   },
-}
-
-const fonts = {
-  // heading: 'M PLUS Rounded 1c'
-  heading: 'Inter, sans-serif',
-  body: 'Inter, sans-serif',
+  Text: {
+    variants: {
+      heading: {
+        marginBottom: baseTheme.space[4],
+        fontFamily: baseTheme.heading,
+        fontSize: {
+          base: baseTheme.fontSizes['3xl'],
+          md: baseTheme.fontSizes['5xl'],
+        },
+        fontWeight: baseTheme.fontWeights.bold,
+        lineHeight: baseTheme.lineHeights.shorter,
+        letterSpacing: baseTheme.letterSpacings.tight,
+      },
+      superHeading: {
+        marginTop: baseTheme.space[8],
+        marginBottom: baseTheme.space[32],
+        fontSize: baseTheme.fontSizes['6xl'],
+        fontFamily: fonts.heading,
+        fontWeight: baseTheme.fontWeights.extrabold,
+        lineHeight: baseTheme.lineHeights.heading,
+        letterSpacing: baseTheme.letterSpacings.tight,
+      },
+    },
+  },
 }
 
 const colors = {
   glassTeal: '#88ccca',
+  primary: '#6087cf',
+  muted: '#48659c',
+  active: '#e6e6e6',
+  black: '#000',
   blue: {
     50: '#edf1fc',
     100: '#cfd5e3',

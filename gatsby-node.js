@@ -33,6 +33,20 @@ exports.createSchemaCustomization = async ({ actions, schema }) => {
   })
 
   actions.createFieldExtension({
+    name: 'sanityReactBlockContent',
+    args: {
+      fieldName: 'String',
+    },
+    extend(options) {
+      return {
+        resolve(source) {
+          return source[options.fieldName]
+        },
+      }
+    },
+  })
+
+  actions.createFieldExtension({
     name: 'navItemType',
     args: {
       name: {
@@ -72,6 +86,13 @@ exports.createSchemaCustomization = async ({ actions, schema }) => {
       text: String
       images: [ContextImage]
       slides: [HomepageHero]
+    }
+
+    interface HomepageMarkdown implements Node & HomepageBlock {
+      id: ID!
+      blocktype: String
+      heading: String
+      blockContent: JSON
     }
 
     interface HomepageLink implements Node {
@@ -376,6 +397,13 @@ exports.createSchemaCustomization = async ({ actions, schema }) => {
       image: HomepageImage @link(by: "id", from: "image.asset._ref")
       text: String
       links: [HomepageLink] @link
+    }
+
+    type SanityHomepageMarkdown implements Node & HomepageMarkdown & HomepageBlock {
+      id: ID!
+      blocktype: String @blocktype
+      heading: String
+      blockContent: JSON @sanityReactBlockContent(fieldName: "content")
     }
 
     type SanityHomepageCarousel implements Node & HomepageCarousel & HomepageBlock
