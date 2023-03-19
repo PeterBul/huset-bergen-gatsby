@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Users\peter\scoop\apps\nvm\current\nodejs\nodejs\node.exe C:\Users\peter\scoop\apps\nvm\current\nodejs\nodejs\node_modules\yarn\bin\yarn.js add @chakra-ui/icons
+  C:\Users\peter\scoop\apps\nvm\current\nodejs\nodejs\node.exe C:\Users\peter\scoop\apps\nvm\current\nodejs\nodejs\node_modules\yarn\bin\yarn.js add gatsby@latest
 
 PATH: 
-  C:\Users\peter\AppData\Local\oh-my-posh;C:\Program Files\WindowsApps\Microsoft.PowerShell_7.3.3.0_x64__8wekyb3d8bbwe;C:\Users\peter\AppData\Local\oh-my-posh;C:\Users\peter\anaconda3;C:\Users\peter\anaconda3\Library\mingw-w64\bin;C:\Users\peter\anaconda3\Library\usr\bin;C:\Users\peter\anaconda3\Library\bin;C:\Users\peter\anaconda3\Scripts;C:\Users\peter\anaconda3\bin;C:\Users\peter\anaconda3\condabin;C:\Program Files\WindowsApps\Microsoft.PowerShell_7.3.3.0_x64__8wekyb3d8bbwe;C:\windows\System32\WindowsPowerShell\v1.0;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\OpenSSH;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\Users\peter\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;C:\Program Files\dotnet;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Users\peter\AppData\Local\Programs\Python\Python310\Scripts;C:\Users\peter\scoop\apps\nvm\current\nodejs\nodejs;C:\Users\peter\scoop\apps\gcc\current\bin;C:\Users\peter\scoop\shims;C:\Program Files\OpenSSL-Win64\bin;C:\Users\peter\AppData\Local\Programs\Python\Python310;C:\Users\peter\AppData\Local\Microsoft\WindowsApps;C:\Users\peter\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\peter\AppData\Local\gitkraken\bin;C:\Users\peter\AppData\Local\Programs\Fiddler;C:\Users\peter\AppData\Local\Programs\mongosh;C:\Users\peter\anaconda3\Scripts;C:\Users\peter\anaconda3;C:\Users\peter\anaconda3\Library\bin;C:\Users\peter\AppData\Local\Programs\oh-my-posh\bin;C:\Users\peter\AppData\Local\GitHubDesktop\bin;C:\Users\peter\AppData\Local\Microsoft\WindowsApps
+  C:\Users\peter\AppData\Local\oh-my-posh;C:\Users\peter\anaconda3;C:\Users\peter\anaconda3\Library\mingw-w64\bin;C:\Users\peter\anaconda3\Library\usr\bin;C:\Users\peter\anaconda3\Library\bin;C:\Users\peter\anaconda3\Scripts;C:\Users\peter\anaconda3\bin;C:\Users\peter\anaconda3\condabin;C:\Program Files\WindowsApps\Microsoft.PowerShell_7.3.3.0_x64__8wekyb3d8bbwe;C:\windows\System32\WindowsPowerShell\v1.0;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\OpenSSH;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\Users\peter\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;C:\Program Files\dotnet;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Users\peter\AppData\Local\Programs\Python\Python310\Scripts;C:\Users\peter\scoop\apps\nvm\current\nodejs\nodejs;C:\Users\peter\scoop\apps\gcc\current\bin;C:\Users\peter\scoop\shims;C:\Program Files\OpenSSL-Win64\bin;C:\Users\peter\AppData\Local\Programs\Python\Python310;C:\Users\peter\AppData\Local\Microsoft\WindowsApps;C:\Users\peter\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\peter\AppData\Local\gitkraken\bin;C:\Users\peter\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\peter\AppData\Local\Programs\Fiddler;C:\Users\peter\AppData\Local\Programs\mongosh;C:\Users\peter\anaconda3\Scripts;C:\Users\peter\anaconda3;C:\Users\peter\anaconda3\Library\bin;C:\Users\peter\AppData\Local\Programs\oh-my-posh\bin;C:\Users\peter\AppData\Local\GitHubDesktop\bin;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps;.
 
 Yarn version: 
   1.22.19
@@ -35,12 +35,14 @@ npm manifest:
     "dependencies": {
       "@chakra-ui/core": "^0.8.0",
       "@chakra-ui/gatsby-plugin": "^3.1.1",
+      "@chakra-ui/icons": "^2.0.17",
       "@chakra-ui/react": "^2.5.1",
       "@emotion/core": "^11.0.0",
       "@emotion/react": "^11.10.6",
       "@emotion/styled": "^11.10.6",
       "@fontsource/dm-mono": "^4.5.9",
       "@fontsource/dm-sans": "^4.5.8",
+      "@portabletext/react": "^2.0.2",
       "@sanity/block-content-to-html": "^2.0.0",
       "@vanilla-extract/babel-plugin": "^1.2.0",
       "@vanilla-extract/css": "^1.9.0",
@@ -57,8 +59,8 @@ npm manifest:
       "gatsby-source-sanity": "^7.3.2",
       "gatsby-transformer-sharp": "^5.0.0",
       "is-absolute-url": "^4.0.1",
-      "react": "^18.0.0",
-      "react-dom": "^18.0.0",
+      "react": "^18.2.0",
+      "react-dom": "^18.2.0",
       "react-feather": "^2.0.9",
       "sharp": "^0.30.5",
       "swiper": "^9.1.0"
@@ -1361,6 +1363,13 @@ Lockfile:
     integrity sha512-RpA1X5Ptz8Mt39HSyEIW1wxAz2AXyf9H0JJ5HVx/dBdMZaGMDJ0HyyPBVci0m4RCoJuyG1HHG/DXJaVfUTVAeg==
     dependencies:
       "@chakra-ui/shared-utils" "2.0.5"
+  
+  "@chakra-ui/icons@^2.0.17":
+    version "2.0.17"
+    resolved "https://registry.yarnpkg.com/@chakra-ui/icons/-/icons-2.0.17.tgz#625a46d169707aad36d65c04a4626a422f92e5ae"
+    integrity sha512-HMJP0WrJgAmFR9+Xh/CBH0nVnGMsJ4ZC8MK6tMgxPKd9/muvn0I4hsicHqdPlLpmB0TlxlhkBAKaVMtOdz6F0w==
+    dependencies:
+      "@chakra-ui/icon" "3.0.16"
   
   "@chakra-ui/image@2.0.15":
     version "2.0.15"
@@ -2970,6 +2979,26 @@ Lockfile:
     version "2.11.6"
     resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.6.tgz#cee20bd55e68a1720bdab363ecf0c821ded4cd45"
     integrity sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw==
+  
+  "@portabletext/react@^2.0.2":
+    version "2.0.2"
+    resolved "https://registry.yarnpkg.com/@portabletext/react/-/react-2.0.2.tgz#fcfe7983d6933efbccadeda2e6182e09324b05cb"
+    integrity sha512-8b325SwY4vAFP1Fu7coJUx/eOoenm197VnCWauJSH0zawwz6n8ouhFc5se1FKPpPPbJMqH3C+RGv2FOWQfB51A==
+    dependencies:
+      "@portabletext/toolkit" "^2.0.1"
+      "@portabletext/types" "^2.0.2"
+  
+  "@portabletext/toolkit@^2.0.1":
+    version "2.0.1"
+    resolved "https://registry.yarnpkg.com/@portabletext/toolkit/-/toolkit-2.0.1.tgz#ce1f6a27b19e6bb2e36ffcb39c5e05b09d55e9dc"
+    integrity sha512-vr2SeDFUFV+VmRIyYsHBMimZLiiN0S7qIridt/YLJs3Wm1dI4jsfUam82AQwheSMjvWdBiBZ+Wsjq5HZBG4htw==
+    dependencies:
+      "@portabletext/types" "^2.0.0"
+  
+  "@portabletext/types@^2.0.0", "@portabletext/types@^2.0.2":
+    version "2.0.2"
+    resolved "https://registry.yarnpkg.com/@portabletext/types/-/types-2.0.2.tgz#f283a2a0db68abff0c7b8f04f6fafc266d01e0c4"
+    integrity sha512-3xTbSa80G1nODyACY0ilrmPo1PmU1xuoPvfcpzpqSEL0kX01fSW+21PKgS9BcG+GqdG9HK/VxciKWa+nFA7mqg==
   
   "@reach/alert@^0.1.2":
     version "0.1.5"
@@ -6818,11 +6847,6 @@ Lockfile:
       "@parcel/transformer-js" "2.8.3"
       "@parcel/transformer-json" "2.8.3"
   
-  gatsby-plugin-chakra-ui@^0.1.5:
-    version "0.1.5"
-    resolved "https://registry.yarnpkg.com/gatsby-plugin-chakra-ui/-/gatsby-plugin-chakra-ui-0.1.5.tgz#3586f6661fca04603f7b401525e08f93a2e0751e"
-    integrity sha512-60y4x71Bi4I9DrbxHXFdAddPzrLea2tvwCWzIFvoaVCC7fPvjCn9r+DCatlYzWDWP80bwaULV1yM7MnODted2w==
-  
   gatsby-plugin-image@^3.0.0:
     version "3.7.0"
     resolved "https://registry.yarnpkg.com/gatsby-plugin-image/-/gatsby-plugin-image-3.7.0.tgz#049c688bb8bf77916afceda83bd1b0e7ed946a75"
@@ -10029,7 +10053,7 @@ Lockfile:
       strip-ansi "^6.0.1"
       text-table "^0.2.0"
   
-  react-dom@^18.0.0:
+  react-dom@^18.2.0:
     version "18.2.0"
     resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-18.2.0.tgz#22aaf38708db2674ed9ada224ca4aa708d821e3d"
     integrity sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==
@@ -10121,7 +10145,7 @@ Lockfile:
       invariant "^2.2.4"
       tslib "^2.0.0"
   
-  react@^18.0.0:
+  react@^18.2.0:
     version "18.2.0"
     resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"
     integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==

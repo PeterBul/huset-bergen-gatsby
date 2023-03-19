@@ -1,5 +1,14 @@
 const sanityBlockContentToHTML = require('@sanity/block-content-to-html')
 
+exports.onCreateBabelConfig = ({ actions }) => {
+  actions.setBabelPreset({
+    name: 'babel-preset-gatsby',
+    options: {
+      reactRuntime: 'automatic',
+    },
+  })
+}
+
 exports.createSchemaCustomization = async ({ actions, schema }) => {
   actions.createFieldExtension({
     name: 'blocktype',
@@ -119,7 +128,7 @@ exports.createSchemaCustomization = async ({ actions, schema }) => {
       id: ID!
       navItemType: String
       name: String
-      navItems: [NavItem]
+      navItems: [HeaderNavItem]
     }
 
     interface HomepageImage implements Node {
@@ -544,7 +553,7 @@ exports.createSchemaCustomization = async ({ actions, schema }) => {
       id: ID!
       navItemType: String @navItemType(name: "Group")
       name: String
-      navItems: [NavItem] @link
+      navItems: [HeaderNavItem] @link(from: "navItems._ref")
     }
 
     type SanityLayoutHeader implements Node & LayoutHeader {

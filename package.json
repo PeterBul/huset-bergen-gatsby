@@ -31,7 +31,7 @@
     "@vanilla-extract/webpack-plugin": "^2.1.12",
     "emotion-theming": "^11.0.0",
     "framer-motion": "^10.0.1",
-    "gatsby": "^5.0.0",
+    "gatsby": "^5.7.0",
     "gatsby-plugin-image": "^3.0.0",
     "gatsby-plugin-manifest": "^5.0.0",
     "gatsby-plugin-sharp": "^5.0.0",
@@ -40,18 +40,19 @@
     "gatsby-source-sanity": "^7.3.2",
     "gatsby-transformer-sharp": "^5.0.0",
     "is-absolute-url": "^4.0.1",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-feather": "^2.0.9",
     "sharp": "^0.30.5",
     "swiper": "^9.1.0"
   },
   "devDependencies": {
+    "@types/react": "^18.0.28",
     "configstore": "^5.0.0",
     "gatsby-provision-sanity": "^0.0.5",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.5",
     "prettier": "2.5.1",
-    "typescript": "^4.6.2"
+    "typescript": "^5.0.2"
   }
 }
