@@ -1,6 +1,6 @@
-import * as React from "react"
-import { graphql, useStaticQuery } from "gatsby"
-import { Menu, X } from "react-feather"
+import * as React from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
+import { Menu, X } from 'react-feather'
 import {
   FlexList,
   Space,
@@ -9,38 +9,38 @@ import {
   InteractiveIcon,
   Nudge,
   VisuallyHidden,
-} from "./ui"
+} from './ui'
 import {
   mobileNavOverlay,
   mobileNavLink,
   desktopHeaderNavWrapper,
   mobileHeaderNavWrapper,
   mobileNavSVGColorWrapper,
-} from "./header.css"
-import NavItemGroup, { NavItemGroupNavItem } from "./nav-item-group"
-import BrandLogo from "./brand-logo"
-import { ThemeToggleButton } from "./theme-toggle-button"
-import { Box, Container, Flex } from "@chakra-ui/react"
+} from './header.css'
+import NavItemGroup, { NavItemGroupItem } from './nav-item-group'
+import BrandLogo from './brand-logo'
+import { ThemeToggleButton } from './theme-toggle-button'
+import { Box, Container, Flex } from '@chakra-ui/react'
 
 type NavItem = {
   id: string
-  navItemType: "Link"
+  navItemType: 'Link'
   href: string
   text: string
 }
 
 type NavItemGroup = {
   id: string
-  navItemType: "Group"
+  navItemType: 'Group'
   name: string
-  navItems: NavItemGroupNavItem[]
+  navItems: NavItemGroupItem[]
 }
 
 interface HeaderData {
   layout: {
     header: {
       id: string
-      navItems: NavItem[] | NavItemGroup[]
+      navItems: (NavItem | NavItemGroup)[]
       cta: {
         id: string
         href: string
@@ -62,17 +62,41 @@ export default function Header() {
             ... on NavItem {
               href
               text
+              description
+              icon {
+                alt
+                gatsbyImageData
+              }
             }
             ... on NavItemGroup {
               name
               navItems {
                 id
-                href
-                text
-                description
-                icon {
-                  alt
-                  gatsbyImageData
+                navItemType
+                ... on NavItem {
+                  href
+                  text
+                  description
+                  icon {
+                    alt
+                    gatsbyImageData
+                  }
+                }
+                ... on NavItemGroup {
+                  name
+                  navItems {
+                    id
+                    navItemType
+                    ... on NavItem {
+                      href
+                      text
+                      description
+                      icon {
+                        alt
+                        gatsbyImageData
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -92,9 +116,9 @@ export default function Header() {
 
   React.useEffect(() => {
     if (isOpen) {
-      document.body.style.overflowY = "hidden"
+      document.body.style.overflowY = 'hidden'
     } else {
-      document.body.style.overflowY = "visible"
+      document.body.style.overflowY = 'visible'
     }
   }, [isOpen])
 
@@ -116,7 +140,7 @@ export default function Header() {
               {navItems &&
                 navItems.map((navItem) => (
                   <li key={navItem.id}>
-                    {navItem.navItemType === "Group" ? (
+                    {navItem.navItemType === 'Group' ? (
                       <NavItemGroup
                         name={navItem.name}
                         navItems={navItem.navItems}
@@ -133,13 +157,13 @@ export default function Header() {
       </Container>
       <Container
         maxW="container.md"
-        className={mobileHeaderNavWrapper[isOpen ? "open" : "closed"]}
+        className={mobileHeaderNavWrapper[isOpen ? 'open' : 'closed']}
       >
         <Space size={2} />
         <Flex justifyContent="space-between">
           <span
             className={
-              mobileNavSVGColorWrapper[isOpen ? "reversed" : "primary"]
+              mobileNavSVGColorWrapper[isOpen ? 'reversed' : 'primary']
             }
           >
             <NavLink to="/">
@@ -151,7 +175,7 @@ export default function Header() {
             <Space />
             <div>
               {cta && (
-                <Button to={cta.href} variant={isOpen ? "reversed" : "primary"}>
+                <Button to={cta.href} variant={isOpen ? 'reversed' : 'primary'}>
                   {cta.text}
                 </Button>
               )}
@@ -161,7 +185,7 @@ export default function Header() {
                 title="Toggle menu"
                 onClick={() => setOpen(!isOpen)}
                 className={
-                  mobileNavSVGColorWrapper[isOpen ? "reversed" : "primary"]
+                  mobileNavSVGColorWrapper[isOpen ? 'reversed' : 'primary']
                 }
               >
                 {isOpen ? <X /> : <Menu />}
@@ -176,7 +200,7 @@ export default function Header() {
             <FlexList responsive variant="stretch">
               {navItems?.map((navItem) => (
                 <li key={navItem.id}>
-                  {navItem.navItemType === "Group" ? (
+                  {navItem.navItemType === 'Group' ? (
                     <NavItemGroup
                       name={navItem.name}
                       navItems={navItem.navItems}

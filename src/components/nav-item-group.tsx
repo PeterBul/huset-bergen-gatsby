@@ -1,35 +1,58 @@
-import * as React from "react"
-import { HomepageImage, Icon, NavLink } from "./ui"
+import { HomepageImage, Icon, NavLink } from './ui'
 import {
   Box,
   Button,
   css,
+  Flex,
   Popover,
   PopoverBody,
   PopoverContent,
   PopoverTrigger,
-} from "@chakra-ui/react"
+  styled,
+} from '@chakra-ui/react'
+import NavItemSubGroup from './nav-item-sub-group'
+import { useState } from 'react'
 
 export type NavItemGroupNavItem = {
   id: string
+  navItemType: 'Link'
   href: string
   icon: HomepageImage
   text: string
   description?: string
 }
 
+export type NavItemGroupNavItemGroup = {
+  id: string
+  navItemType: 'Group'
+  name: string
+  navItems: NavItemGroupItem[]
+}
+
+export type NavItemGroupItem = NavItemGroupNavItem | NavItemGroupNavItemGroup
+
 interface NavItemGroupProps {
   name: string
-  navItems: NavItemGroupNavItem[]
+  navItems: NavItemGroupItem[]
 }
 
 export default function NavItemGroup({ name, navItems }: NavItemGroupProps) {
+  const [activeNavItem, setActiveNavItem] = useState<NavItemGroupItem | null>(
+    null
+  )
   return (
-    <Popover trigger="hover" openDelay={0} closeDelay={0} gutter={0}>
+    <Popover
+      trigger="hover"
+      openDelay={0}
+      closeDelay={200}
+      gutter={0}
+      placement="bottom-start"
+      onClose={() => setActiveNavItem(null)}
+    >
       <PopoverTrigger>
         <Button
           py="30px"
-          _hover={{ bg: "transparent", color: "blue.200" }}
+          _hover={{ bg: 'transparent', color: 'background.200' }}
           bg="none"
         >
           Trigger
@@ -38,34 +61,26 @@ export default function NavItemGroup({ name, navItems }: NavItemGroupProps) {
           <NavLink to="/about">Trigger</NavLink>
         </Box> */}
       </PopoverTrigger>
-      <PopoverContent>
-        <PopoverBody>
-          {navItems.map((navItem) => {
-            return (
-              <NavLink to={navItem.href} key={navItem.id}>
-                <Box
-                  display="flex"
-                  m={1}
-                  alignItems="center"
-                  _hover={{
-                    background: "blue.800",
-                  }}
-                  p={2}
-                  borderRadius="md"
-                >
-                  <Box mr={2} boxSize="icon.md">
-                    {navItem.icon && (
-                      <Icon
-                        alt={navItem.icon.alt || ""}
-                        image={navItem.icon.gatsbyImageData}
-                      />
-                    )}
-                  </Box>
-                  {navItem.text}
-                </Box>
-              </NavLink>
-            )
-          })}
+      <PopoverContent w="auto">
+        <PopoverBody display="flex">
+          <NavItemSubGroup
+            navItems={navItems}
+            name={name}
+            onNavItemHover={(navItem) => {
+              setActiveNavItem(navItem)
+            }}
+            activeNavItem={activeNavItem?.id}
+          />
+          {activeNavItem && activeNavItem.navItemType === 'Group' && (
+            <NavItemSubGroup
+              navItems={activeNavItem.navItems}
+              name={name}
+              borderRadius="md"
+              display="flex"
+              flexDir="column"
+              justifyContent="end"
+            />
+          )}
         </PopoverBody>
       </PopoverContent>
     </Popover>
