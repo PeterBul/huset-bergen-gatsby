@@ -29,7 +29,17 @@ export type NavItemGroupNavItemGroup = {
   navItems: NavItemGroupItem[]
 }
 
-export type NavItemGroupItem = NavItemGroupNavItem | NavItemGroupNavItemGroup
+export type NavItemGroupDepartmentPage = {
+  id: string
+  navItemType: 'DepartmentPage'
+  title: string
+  slug: string
+}
+
+export type NavItemGroupItem =
+  | NavItemGroupNavItem
+  | NavItemGroupNavItemGroup
+  | NavItemGroupDepartmentPage
 
 interface NavItemGroupProps {
   name: string
@@ -55,7 +65,7 @@ export default function NavItemGroup({ name, navItems }: NavItemGroupProps) {
           _hover={{ bg: 'transparent', color: 'background.200' }}
           bg="none"
         >
-          Trigger
+          {name}
         </Button>
         {/* <Box>
           <NavLink to="/about">Trigger</NavLink>

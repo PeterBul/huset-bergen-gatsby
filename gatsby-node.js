@@ -69,6 +69,8 @@ exports.createSchemaCustomization = async ({ actions, schema }) => {
           switch (options.name) {
             case 'Group':
               return 'Group'
+            case 'DepartmentPage':
+              return 'DepartmentPage'
             default:
               return 'Link'
           }
@@ -319,6 +321,15 @@ exports.createSchemaCustomization = async ({ actions, schema }) => {
       content: [HomepageBlock]
     }
 
+    interface DepartmentPage implements Node & HeaderNavItem {
+      id: ID!
+      navItemType: String
+      title: String
+      description: String
+      slug: String! @proxy(from: "slug.current")
+      content: [HomepageBlock]
+    }
+
     interface AboutHero implements Node & HomepageBlock {
       id: ID!
       blocktype: String
@@ -346,6 +357,15 @@ exports.createSchemaCustomization = async ({ actions, schema }) => {
       jobTitle: String
     }
 
+    interface PersonInfo implements Node {
+      id: ID!
+      image: HomepageImage
+      name: String
+      jobTitle: String
+      desc: String
+      email: String
+    }
+
     interface AboutLeadership implements Node & HomepageBlock {
       id: ID!
       blocktype: String
@@ -353,6 +373,15 @@ exports.createSchemaCustomization = async ({ actions, schema }) => {
       heading: String
       subhead: String
       content: [AboutProfile]
+    }
+
+    interface PeopleInfo implements Node & HomepageBlock {
+      id: ID!
+      blocktype: String
+      kicker: String
+      heading: String
+      subhead: String
+      content: [PersonInfo]
     }
 
     interface AboutLogoList implements Node & HomepageBlock {
@@ -365,7 +394,7 @@ exports.createSchemaCustomization = async ({ actions, schema }) => {
 
     interface Page implements Node {
       id: ID!
-      slug: String!
+      slug: String! @proxy(from: "slug.current")
       title: String
       description: String
       image: HomepageImage
@@ -590,6 +619,15 @@ exports.createSchemaCustomization = async ({ actions, schema }) => {
       content: [HomepageBlock]
     }
 
+    type SanityDepartmentPage implements Node & DepartmentPage & HeaderNavItem {
+      id: ID!
+      navItemType: String @navItemType(name: "DepartmentPage")
+      title: String
+      slug: String! @proxy(from: "slug.current")
+      description: String
+      content: [HomepageBlock]
+    }
+
     type SanityAboutHero implements Node & AboutHero & HomepageBlock {
       id: ID!
       blocktype: String @blocktype
@@ -617,6 +655,15 @@ exports.createSchemaCustomization = async ({ actions, schema }) => {
       jobTitle: String
     }
 
+    type SanityPersonInfo implements Node & PersonInfo {
+      id: ID!
+      image: HomepageImage @link(by: "id", from: "image.asset._ref")
+      name: String
+      jobTitle: String
+      desc: String
+      email: String
+    }
+
     type SanityAboutLeadership implements Node & AboutLeadership & HomepageBlock {
       id: ID!
       blocktype: String @blocktype
@@ -624,6 +671,15 @@ exports.createSchemaCustomization = async ({ actions, schema }) => {
       heading: String
       subhead: String
       content: [AboutProfile]
+    }
+
+    type SanityPeopleInfo implements Node & PeopleInfo & HomepageBlock {
+      id: ID!
+      blocktype: String @blocktype
+      kicker: String
+      heading: String
+      subhead: String
+      content: [PersonInfo]
     }
 
     type SanityAboutLogoList implements Node & AboutLogoList & HomepageBlock {
@@ -645,8 +701,43 @@ exports.createSchemaCustomization = async ({ actions, schema }) => {
   `)
 }
 
-exports.createPages = ({ actions }) => {
-  const { createSlice } = actions
+async function createBlogPostPages(graphql, createPage) {
+  const result = await graphql(`
+    {
+      allDepartmentPage {
+        nodes {
+          id
+          slug
+        }
+      }
+    }
+  `)
+
+  if (result.errors) throw result.errors
+
+  const departmentNodes = (result.data.allDepartmentPage || {}).nodes || []
+
+  departmentNodes
+    // .filter((node) => !isFuture(new Date(node.publishedAt)))
+    .forEach((node) => {
+      const {
+        id,
+        slug,
+        // publishedAt
+      } = node
+      // const dateSegment = format(new Date(publishedAt), 'yyyy/MM')
+      const path = `/avdelinger/${slug}/`
+
+      createPage({
+        path,
+        component: require.resolve('./src/templates/department.tsx'),
+        context: { id },
+      })
+    })
+}
+
+exports.createPages = async ({ actions, graphql }) => {
+  const { createSlice, createPage } = actions
   createSlice({
     id: 'header',
     component: require.resolve('./src/components/header.tsx'),
@@ -655,4 +746,6 @@ exports.createPages = ({ actions }) => {
     id: 'footer',
     component: require.resolve('./src/components/footer.tsx'),
   })
+
+  await createBlogPostPages(graphql, createPage)
 }

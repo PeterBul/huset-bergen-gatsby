@@ -15,6 +15,7 @@ import {
   ChakraProps,
   PropsOf,
   Text as ChakraText,
+  Heading as ChakraHeading,
   Button as ChakraButton,
 } from '@chakra-ui/react'
 
@@ -219,15 +220,15 @@ export function Text({
 }
 
 export function SuperHeading({ ...props }: PropsOf<typeof ChakraText>) {
-  return <ChakraText as="h1" variant="superHeading" {...props} />
+  return <ChakraHeading as="h1" variant="superHeading" {...props} />
 }
 
 export function Heading({ ...props }: PropsOf<typeof ChakraText>) {
-  return <ChakraText as="h2" variant="heading" {...props} />
+  return <ChakraHeading as="h2" variant="heading" {...props} />
 }
 
 export function Subhead({ ...props }) {
-  return <Text as="h3" variant="subhead" {...props} />
+  return <ChakraHeading as="h3" variant="subhead" {...props} />
 }
 
 export function Kicker({ ...props }) {
