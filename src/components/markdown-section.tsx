@@ -18,7 +18,6 @@ const PortableTextWrapper = styled('div')`
 `
 
 export default function MarkdownSection(props: IMarkdownSectionProps) {
-  console.log(props.blockContent)
   return (
     <Section>
       <Container>

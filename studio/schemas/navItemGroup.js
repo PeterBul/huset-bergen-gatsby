@@ -11,7 +11,11 @@ export default {
       of: [
         {
           type: 'reference',
-          to: [{ type: 'navItem' }, { type: 'navItemGroup' }],
+          to: [
+            { type: 'navItem' },
+            { type: 'navItemGroup' },
+            { type: 'departmentPage' },
+          ],
         },
       ],
     },

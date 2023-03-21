@@ -96,6 +96,10 @@ export default function Header() {
                         gatsbyImageData
                       }
                     }
+                    ... on DepartmentPage {
+                      slug
+                      title
+                    }
                   }
                 }
               }

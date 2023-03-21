@@ -40,6 +40,9 @@ import aboutLeadership from './aboutLeadership'
 import aboutLogoList from './aboutLogoList'
 import homepageCarousel from './homepageCarousel'
 import contextImage from './contextImage'
+import personInfo from './personInfo'
+import peopleInfo from './peopleInfo'
+import departmentPage from './departmentPage'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -85,5 +88,10 @@ export default createSchema({
     aboutProfile,
     aboutLeadership,
     aboutLogoList,
+    // department page
+    departmentPage,
+    // general
+    peopleInfo,
+    personInfo,
   ]),
 })

@@ -13,6 +13,7 @@ import { AboutLeadershipProps } from './about-leadership'
 import { AboutLogoListProps } from './about-logo-list'
 import { CarouselProps } from './carsousel-section'
 import { IMarkdownSectionProps } from './markdown-section'
+import { IAboutPeopleProps } from './people-info'
 
 export { default as HomepageHero } from './hero'
 export { default as HomepageFeatureList } from './feature-list'
@@ -28,6 +29,7 @@ export { default as AboutLeadership } from './about-leadership'
 export { default as AboutLogoList } from './about-logo-list'
 export { default as HomepageCarousel } from './carsousel-section'
 export { default as HomepageMarkdown } from './markdown-section'
+export { default as PeopleInfo } from './people-info'
 
 export type SectionProps =
   | HeroProps
@@ -44,6 +46,7 @@ export type SectionProps =
   | AboutLogoListProps
   | CarouselProps
   | IMarkdownSectionProps
+  | IAboutPeopleProps
 
 type Blocktypes =
   | 'HomepageHero'
@@ -60,6 +63,7 @@ type Blocktypes =
   | 'AboutLogoList'
   | 'HomepageCarousel'
   | 'HomepageMarkdown'
+  | 'PeopleInfo'
 
 type WithBlocktype<B = Blocktypes, P = SectionProps> = {
   id: string
@@ -80,4 +84,8 @@ export type HomepageBlock =
   | WithBlocktype<'AboutLeadership', AboutLeadershipProps>
   | WithBlocktype<'AboutLogoList', AboutLogoListProps>
   | WithBlocktype<'HomepageCarousel', CarouselProps>
+  | WithBlocktype<'HomepageMarkdown', IMarkdownSectionProps>
+
+export type DepartmentBlock =
+  | WithBlocktype<'PeopleInfo', IAboutPeopleProps>
   | WithBlocktype<'HomepageMarkdown', IMarkdownSectionProps>

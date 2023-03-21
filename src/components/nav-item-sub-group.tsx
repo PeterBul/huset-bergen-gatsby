@@ -21,6 +21,7 @@ export default function NavItemSubGroup({
   background,
   ...chakraProps
 }: NavItemSubGroupProps) {
+  console.log(navItems)
   return (
     <Box minW="250px" {...chakraProps}>
       {navItems?.map((navItem) => {
@@ -61,39 +62,67 @@ export default function NavItemSubGroup({
               </Box>
             </Box>
           )
-        }
-        return (
-          <NavLink
-            onMouseEnter={() => {
-              if (onNavItemHover) {
-                onNavItemHover(navItem)
-              }
-            }}
-            to={navItem.href}
-            key={navItem.id}
-          >
-            <Box
-              display="flex"
-              m={1}
-              alignItems="center"
-              _hover={{
-                background: 'background.800',
+        } else if (navItem.navItemType === 'Link') {
+          return (
+            <NavLink
+              onMouseEnter={() => {
+                if (onNavItemHover) {
+                  onNavItemHover(navItem)
+                }
               }}
-              p={2}
-              borderRadius="md"
+              to={navItem.href}
+              key={navItem.id}
             >
-              <Box mr={2} boxSize="icon.md">
-                {navItem.icon && (
-                  <Icon
-                    alt={navItem.icon.alt || ''}
-                    image={navItem.icon.gatsbyImageData}
-                  />
-                )}
+              <Box
+                display="flex"
+                m={1}
+                alignItems="center"
+                _hover={{
+                  background: 'background.800',
+                }}
+                p={2}
+                borderRadius="md"
+              >
+                <Box mr={2} boxSize="icon.md">
+                  {navItem.icon && (
+                    <Icon
+                      alt={navItem.icon.alt || ''}
+                      image={navItem.icon.gatsbyImageData}
+                    />
+                  )}
+                </Box>
+                {navItem.text}
               </Box>
-              {navItem.text}
-            </Box>
-          </NavLink>
-        )
+            </NavLink>
+          )
+        } else if (navItem.navItemType === 'DepartmentPage') {
+          return (
+            <NavLink
+              onMouseEnter={() => {
+                if (onNavItemHover) {
+                  onNavItemHover(navItem)
+                }
+              }}
+              to={`/avdelinger/${navItem.slug}`}
+              key={navItem.id}
+            >
+              <Box
+                display="flex"
+                m={1}
+                alignItems="center"
+                _hover={{
+                  background: 'background.800',
+                }}
+                p={2}
+                borderRadius="md"
+              >
+                <Box mr={2} boxSize="icon.md"></Box>
+                {navItem.title}
+              </Box>
+            </NavLink>
+          )
+        }
+        throw new Error('Nav item type is not implemented')
       })}
     </Box>
   )

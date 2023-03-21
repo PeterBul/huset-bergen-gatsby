@@ -1,9 +1,9 @@
-import * as React from "react"
-import { graphql } from "gatsby"
-import Layout from "../components/layout"
-import * as sections from "../components/sections"
-import Fallback from "../components/fallback"
-import SEOHead from "../components/head"
+import { graphql } from 'gatsby'
+import Layout from '../components/layout'
+import * as sections from '../components/sections'
+import Fallback from '../components/fallback'
+import SEOHead from '../components/head'
+import { HomepageImage } from '../components/ui'
 
 interface AboutProps {
   data: {
@@ -14,11 +14,21 @@ interface AboutProps {
       image: { id: string; url: string }
       blocks: sections.HomepageBlock[]
     }
+    allPersonInfo: {
+      nodes: {
+        id: string
+        name: string
+        desc: string
+        jobTitle: string
+        email: string
+        image: HomepageImage
+      }[]
+    }
   }
 }
 
 export default function About(props: AboutProps) {
-  const { aboutPage } = props.data
+  const { aboutPage, allPersonInfo } = props.data
 
   return (
     <Layout>
@@ -54,6 +64,7 @@ export const query = graphql`
         ...HomepageBenefitListContent
         ...AboutLogoListContent
         ...HomepageCtaContent
+        ...PeopleInfoContent
       }
     }
   }
