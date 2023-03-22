@@ -64,8 +64,7 @@ export default function Header() {
               text
               description
               icon {
-                alt
-                gatsbyImageData
+                ...ImageWithPreview
               }
             }
             ... on NavItemGroup {
@@ -78,8 +77,7 @@ export default function Header() {
                   text
                   description
                   icon {
-                    alt
-                    gatsbyImageData
+                    ...ImageWithPreview
                   }
                 }
                 ... on NavItemGroup {
@@ -92,8 +90,7 @@ export default function Header() {
                       text
                       description
                       icon {
-                        alt
-                        gatsbyImageData
+                        ...ImageWithPreview
                       }
                     }
                     ... on DepartmentPage {
@@ -117,6 +114,7 @@ export default function Header() {
 
   const { navItems, cta } = data.layout.header
   const [isOpen, setOpen] = React.useState(false)
+  console.log('data', data)
 
   React.useEffect(() => {
     if (isOpen) {

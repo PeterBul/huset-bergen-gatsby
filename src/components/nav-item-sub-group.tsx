@@ -1,11 +1,7 @@
-import {
-  Box,
-  ChakraProps,
-  ChakraStyledOptions,
-  ChakraTheme,
-} from '@chakra-ui/react'
-import NavItemGroup, { NavItemGroupItem } from './nav-item-group'
-import { Icon, NavLink } from './ui'
+import { Box, ChakraProps } from '@chakra-ui/react'
+import SanityImage from 'gatsby-plugin-sanity-image'
+import { NavItemGroupItem } from './nav-item-group'
+import { NavLink } from './ui'
 
 interface NavItemSubGroupProps extends ChakraProps {
   name: string
@@ -84,12 +80,7 @@ export default function NavItemSubGroup({
                 borderRadius="md"
               >
                 <Box mr={2} boxSize="icon.md">
-                  {navItem.icon && (
-                    <Icon
-                      alt={navItem.icon.alt || ''}
-                      image={navItem.icon.gatsbyImageData}
-                    />
-                  )}
+                  {navItem.icon && <SanityImage {...navItem.icon} width={20} />}
                 </Box>
                 {navItem.text}
               </Box>

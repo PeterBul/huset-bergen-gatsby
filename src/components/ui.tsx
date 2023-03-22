@@ -36,6 +36,68 @@ export interface HomepageImage {
   url: string
 }
 
+export interface ISanityImage {
+  asset: ISanityImageAsset
+  hotspot: ISanityImageCrop
+  crop: ISanityImageCrop
+}
+
+export interface ISanityImageAsset {
+  _type?: string | null
+  _createdAt?: string | null
+  _updatedAt?: string | null
+  _rev?: string | null
+  _key?: string | null
+  originalFilename?: string | null
+  label?: string | null
+  title?: string | null
+  description?: string | null
+  altText?: string | null
+  sha1hash?: string | null
+  extension?: string | null
+  mimeType?: string
+  size?: number | null
+  assetId?: string | null
+  uploadId?: string | null
+  path?: string | null
+  url?: string | null
+  // metadata: SanityImageMetadata
+  // source: SanityAssetSourceData
+  // _rawMetadata(resolveReferences: SanityResolveReferencesConfiguration): JSON
+  // _rawSource(resolveReferences: SanityResolveReferencesConfiguration): JSON
+  id?: string
+  alt?: string
+  gatsbyImageData?: IGatsbyImageData
+  // parent?: Node
+  // children: [Node!]!
+  // internal: Internal!
+  // filename: String!
+  // filesize: Int
+  // width: Int
+  // height: Int
+  // publicUrl: String!
+  // resize: RemoteFileResize
+  gatsbyImage?: IGatsbyImageData
+}
+
+interface ISanityImageHotspot {
+  _key: string | null
+  _type: string | null
+  x: number | null
+  y: number | null
+  height: number | null
+  width: number | null
+}
+
+interface ISanityImageCrop {
+  _key: string | null
+  _type: string | null
+  top: string | null
+  bottom: number | null
+  left: number | null
+  right: number | null
+}
+
 type WithChildren<T = {}> = T & { children?: React.ReactNode }
 interface BaseProps {
   as?: React.ElementType | React.FC
@@ -219,11 +281,13 @@ export function Text({
   )
 }
 
-export function SuperHeading({ ...props }: PropsOf<typeof ChakraText>) {
+export function SuperHeading({
+  ...props
+}: PropsOf<typeof ChakraHeading> & ChakraProps) {
   return <ChakraHeading as="h1" variant="superHeading" {...props} />
 }
 
-export function Heading({ ...props }: PropsOf<typeof ChakraText>) {
+export function Heading({ ...props }: PropsOf<typeof ChakraHeading>) {
   return <ChakraHeading as="h2" variant="heading" {...props} />
 }
 

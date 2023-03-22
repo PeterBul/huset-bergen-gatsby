@@ -41,8 +41,7 @@ export const query = graphql`
       name
       jobTitle
       image {
-        gatsbyImageData
-        alt
+        ...ImageWithPreview
       }
       email
       desc

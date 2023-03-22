@@ -32,7 +32,6 @@ export default function MarkdownSection(props: IMarkdownSectionProps) {
 
 export const query = graphql`
   fragment HomepageMarkdownContent on HomepageMarkdown {
-    id
     heading
     blockContent
   }

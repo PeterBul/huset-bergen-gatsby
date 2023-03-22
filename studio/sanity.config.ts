@@ -2,6 +2,8 @@ import { defineConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
 import schemas from './schemas/schema'
 import { visionTool } from '@sanity/vision'
+import { media } from 'sanity-plugin-media'
+import { tags } from 'sanity-plugin-tags'
 import {
   dashboardTool,
   projectInfoWidget,
@@ -11,10 +13,12 @@ import {
 
 export default defineConfig({
   title: 'huset-bergen',
-  projectId: 'yrgb4fn1',
-  dataset: 'production',
+  projectId: process.env.SANITY_STUDIO_PROJECT_ID,
+  dataset: process.env.SANITY_STUDIO_PROJECT_DATASET,
   plugins: [
     deskTool(),
+    media(),
+    tags(),
     visionTool(),
     dashboardTool({
       widgets: [
@@ -29,8 +33,7 @@ export default defineConfig({
   },
   tools: (prev) => {
     // 👇 Uses environment variables set by Vite in development mode
-    // @ts-ignore
-    if (import.meta.env.DEV) {
+    if (process.env.DEV) {
       return prev
     }
     return prev.filter((tool) => tool.name !== 'vision')

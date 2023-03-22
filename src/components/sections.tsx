@@ -89,3 +89,8 @@ export type HomepageBlock =
 export type DepartmentBlock =
   | WithBlocktype<'PeopleInfo', IAboutPeopleProps>
   | WithBlocktype<'HomepageMarkdown', IMarkdownSectionProps>
+
+export type ArticleBlock = WithBlocktype<
+  'HomepageMarkdown',
+  IMarkdownSectionProps
+>

@@ -22,6 +22,7 @@ import socialLink from './socialLink'
 import layoutHeader from './layoutHeader'
 import layoutFooter from './layoutFooter'
 import layout from './layout'
+import category from './documents/category'
 
 import page from './page'
 
@@ -37,6 +38,7 @@ import contextImage from './contextImage'
 import personInfo from './personInfo'
 import peopleInfo from './peopleInfo'
 import departmentPage from './departmentPage'
+import articlePage from './documents/articlePage'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default [
@@ -77,9 +79,11 @@ export default [
   aboutProfile,
   aboutLeadership,
   aboutLogoList,
-  // department page
+  // other pages
+  articlePage,
   departmentPage,
   // general
   peopleInfo,
   personInfo,
+  category,
 ]

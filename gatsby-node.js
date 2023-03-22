@@ -122,7 +122,7 @@ exports.createSchemaCustomization = async ({ actions, schema }) => {
       navItemType: String
       href: String
       text: String
-      icon: HomepageImage
+      icon: SanityImage
       description: String
     }
 
@@ -330,6 +330,21 @@ exports.createSchemaCustomization = async ({ actions, schema }) => {
       content: [HomepageBlock]
     }
 
+    interface Category implements Node {
+      id: ID!
+      label: String
+      slug: String! @proxy(from: "slug.current")
+    }
+
+    interface ArticlePage implements Node {
+      id: ID!
+      title: String
+      slug: String! @proxy(from: "slug.current")
+      image: HomepageImage @link(by: "id", from: "image.asset._ref")
+      categories: [Category]
+      content: [HomepageBlock]
+    }
+
     interface AboutHero implements Node & HomepageBlock {
       id: ID!
       blocktype: String
@@ -359,7 +374,7 @@ exports.createSchemaCustomization = async ({ actions, schema }) => {
 
     interface PersonInfo implements Node {
       id: ID!
-      image: HomepageImage
+      image: SanityImage
       name: String
       jobTitle: String
       desc: String
@@ -574,7 +589,7 @@ exports.createSchemaCustomization = async ({ actions, schema }) => {
       navItemType: String @navItemType(name: "Link")
       href: String
       text: String
-      icon: HomepageImage @link(by: "id", from: "icon.asset._ref")
+      icon: SanityImage
       description: String
     }
 
@@ -628,6 +643,21 @@ exports.createSchemaCustomization = async ({ actions, schema }) => {
       content: [HomepageBlock]
     }
 
+    type SanityCategory implements Category {
+      id: ID!
+      label: String
+      slug: String! @proxy(from: "slug.current")
+    }
+
+    type SanityArticlePage implements Node & ArticlePage {
+      id: ID!
+      title: String
+      slug: String! @proxy(from: "slug.current")
+      image: HomepageImage @link(by: "id", from: "image.asset._ref")
+      categories: [Category]
+      content: [HomepageBlock]
+    }
+
     type SanityAboutHero implements Node & AboutHero & HomepageBlock {
       id: ID!
       blocktype: String @blocktype
@@ -657,7 +687,7 @@ exports.createSchemaCustomization = async ({ actions, schema }) => {
 
     type SanityPersonInfo implements Node & PersonInfo {
       id: ID!
-      image: HomepageImage @link(by: "id", from: "image.asset._ref")
+      image: SanityImage
       name: String
       jobTitle: String
       desc: String
@@ -735,6 +765,68 @@ async function createBlogPostPages(graphql, createPage) {
       })
     })
 }
+async function createArticlePages(graphql, createPage) {
+  const result = await graphql(`
+    {
+      allArticlePage {
+        nodes {
+          id
+          slug
+        }
+      }
+    }
+  `)
+
+  if (result.errors) throw result.errors
+
+  const articleNodes = (result.data.allArticlePage || {}).nodes || []
+
+  articleNodes
+    // .filter((node) => !isFuture(new Date(node.publishedAt)))
+    .forEach((node) => {
+      const {
+        id,
+        slug,
+        // publishedAt
+      } = node
+      // const dateSegment = format(new Date(publishedAt), 'yyyy/MM')
+      const path = `/articles/${slug}/`
+
+      createPage({
+        path,
+        component: require.resolve('./src/templates/article-page.tsx'),
+        context: { id },
+      })
+    })
+}
+
+async function createCategoryPages(graphql, createPage) {
+  const result = await graphql(`
+    {
+      allCategory {
+        nodes {
+          slug
+        }
+      }
+    }
+  `)
+
+  if (result.errors) throw result.errors
+
+  const categoryNodes = (result.data.allCategory || {}).nodes || []
+
+  categoryNodes.forEach((node) => {
+    const { slug } = node
+    console.log('category node', node)
+    const path = `/categories/${slug}/`
+
+    createPage({
+      path,
+      component: require.resolve('./src/templates/category-articles.tsx'),
+      context: { slug },
+    })
+  })
+}
 
 exports.createPages = async ({ actions, graphql }) => {
   const { createSlice, createPage } = actions
@@ -748,4 +840,6 @@ exports.createPages = async ({ actions, graphql }) => {
   })
 
   await createBlogPostPages(graphql, createPage)
+  await createArticlePages(graphql, createPage)
+  await createCategoryPages(graphql, createPage)
 }

@@ -7,4 +7,9 @@
     "./**/*.ts",
     "./**/*.tsx"
   ],
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "types": ["node", "vite/client"]
+  }
 }

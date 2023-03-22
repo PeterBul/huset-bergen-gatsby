@@ -1,4 +1,4 @@
-import { HomepageImage, Icon, NavLink } from './ui'
+import { HomepageImage, Icon, ISanityImage, NavLink } from './ui'
 import {
   Box,
   Button,
@@ -17,7 +17,7 @@ export type NavItemGroupNavItem = {
   id: string
   navItemType: 'Link'
   href: string
-  icon: HomepageImage
+  icon: ISanityImage
   text: string
   description?: string
 }
