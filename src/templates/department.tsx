@@ -75,7 +75,6 @@ const Pill = (props: IPillProps) => (
 
 export default function Department(props: IDepartmentProps) {
   const { title, description } = props.data.page
-  console.log(props.data)
   return (
     <Layout>
       <Container>

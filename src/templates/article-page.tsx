@@ -10,6 +10,7 @@ import {
   HomepageImage,
   Link,
   SuperHeading,
+  ISanityImage,
 } from '../components/ui'
 import { avatar as avatarStyle } from '../components/ui.css'
 import * as styles from './blog-post.css'
@@ -24,6 +25,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { PageTitle } from '../components/page-title'
+import SanityImage from 'gatsby-plugin-sanity-image'
 
 export interface BlogAuthor {
   id: string
@@ -37,7 +39,7 @@ export interface IArticleProps {
       id: string
       slug: string
       title: string
-      image: HomepageImage
+      image: ISanityImage
       categories: { label: string; slug: string }[]
       // description: string
       blocks: sections.ArticleBlock[]
@@ -51,8 +53,10 @@ export const query = graphql`
       title
       slug
       image {
-        gatsbyImageData
-        alt
+        asset {
+          gatsbyImageData
+          alt
+        }
       }
       categories {
         label
@@ -69,7 +73,6 @@ export const query = graphql`
 
 export default function Article(props: IArticleProps) {
   const { title, image, blocks, categories } = props.data.page
-  console.log(props)
   const crumbs =
     categories && categories.length > 0
       ? [{ href: '/' as string | null, text: 'Forside' }]
@@ -81,13 +84,17 @@ export default function Article(props: IArticleProps) {
           )
           .concat([{ text: title, href: null }])
       : undefined
+  console.log(image)
   return (
     <Layout>
       <Container>
         {/* TODO: Add categories as pills */}
         <Box>
           <PageTitle title={title} crumbs={crumbs} />
-          <GatsbyImage alt={image.alt} image={image.gatsbyImageData} />
+          <GatsbyImage
+            image={image.asset.gatsbyImageData}
+            alt={image.asset.alt}
+          />
           {blocks.map((block) => {
             const { id, blocktype, ...componentProps } = block
             const Component = sections[blocktype] || Fallback

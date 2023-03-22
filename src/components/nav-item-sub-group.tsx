@@ -17,7 +17,6 @@ export default function NavItemSubGroup({
   background,
   ...chakraProps
 }: NavItemSubGroupProps) {
-  console.log(navItems)
   return (
     <Box minW="250px" {...chakraProps}>
       {navItems?.map((navItem) => {

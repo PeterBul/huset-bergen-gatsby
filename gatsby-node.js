@@ -340,7 +340,7 @@ exports.createSchemaCustomization = async ({ actions, schema }) => {
       id: ID!
       title: String
       slug: String! @proxy(from: "slug.current")
-      image: HomepageImage @link(by: "id", from: "image.asset._ref")
+      image: SanityImage
       categories: [Category]
       content: [HomepageBlock]
     }
@@ -653,7 +653,7 @@ exports.createSchemaCustomization = async ({ actions, schema }) => {
       id: ID!
       title: String
       slug: String! @proxy(from: "slug.current")
-      image: HomepageImage @link(by: "id", from: "image.asset._ref")
+      image: SanityImage
       categories: [Category]
       content: [HomepageBlock]
     }
@@ -817,7 +817,6 @@ async function createCategoryPages(graphql, createPage) {
 
   categoryNodes.forEach((node) => {
     const { slug } = node
-    console.log('category node', node)
     const path = `/categories/${slug}/`
 
     createPage({

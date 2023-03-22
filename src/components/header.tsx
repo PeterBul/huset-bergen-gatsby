@@ -114,7 +114,6 @@ export default function Header() {
 
   const { navItems, cta } = data.layout.header
   const [isOpen, setOpen] = React.useState(false)
-  console.log('data', data)
 
   React.useEffect(() => {
     if (isOpen) {
