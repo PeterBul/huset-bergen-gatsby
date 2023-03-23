@@ -2,30 +2,14 @@ import * as React from 'react'
 import { graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import Layout from '../components/layout'
-import {
-  Container,
-  Flex,
-  Space,
-  Heading,
-  HomepageImage,
-  Link,
-  SuperHeading,
-  ISanityImage,
-} from '../components/ui'
+import { Container, HomepageImage, ISanityImage } from '../components/ui'
 import { avatar as avatarStyle } from '../components/ui.css'
 import * as styles from './blog-post.css'
 import SEOHead from '../components/head'
 import * as sections from '../components/sections'
 import Fallback from '../components/fallback'
-import {
-  Box,
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  Text,
-} from '@chakra-ui/react'
+import { Flex, Text } from '@chakra-ui/react'
 import { PageTitle } from '../components/page-title'
-import SanityImage from 'gatsby-plugin-sanity-image'
 
 export interface BlogAuthor {
   id: string
@@ -39,6 +23,8 @@ export interface IArticleProps {
       id: string
       slug: string
       title: string
+      intro?: string
+      kicker?: string
       image: ISanityImage
       categories: { label: string; slug: string }[]
       // description: string
@@ -51,7 +37,9 @@ export const query = graphql`
     page: sanityArticlePage(id: { eq: $id }) {
       id
       title
+      intro
       slug
+      kicker
       image {
         asset {
           gatsbyImageData
@@ -66,19 +54,21 @@ export const query = graphql`
         id
         blocktype
         ...HomepageMarkdownContent
+        ...HomepageHeroContent
+        ...HorizontalSectionContent
       }
     }
   }
 `
 
 export default function Article(props: IArticleProps) {
-  const { title, image, blocks, categories } = props.data.page
+  const { title, intro, image, blocks, categories, kicker } = props.data.page
   const crumbs =
     categories && categories.length > 0
       ? [{ href: '/' as string | null, text: 'Forside' }]
           .concat(
             categories.map((c) => ({
-              href: `/category/${c.slug}`,
+              href: `/kategorier/${c.slug}`,
               text: c.label,
             }))
           )
@@ -88,19 +78,27 @@ export default function Article(props: IArticleProps) {
   return (
     <Layout>
       <Container>
-        {/* TODO: Add categories as pills */}
-        <Box>
-          <PageTitle title={title} crumbs={crumbs} />
+        <PageTitle kicker={kicker} title={title} crumbs={crumbs} />
+        <Flex justifyContent="center">
           <GatsbyImage
             image={image.asset.gatsbyImageData}
             alt={image.asset.alt}
           />
-          {blocks.map((block) => {
-            const { id, blocktype, ...componentProps } = block
-            const Component = sections[blocktype] || Fallback
-            return <Component key={id} {...(componentProps as any)} />
-          })}
-        </Box>
+        </Flex>
+        {intro && (
+          <Text mt={10} fontSize="xl" mx={8}>
+            {intro}
+          </Text>
+        )}
+        {blocks.map((block) => {
+          console.log('block', block)
+          if (!block) {
+            return null
+          }
+          const { id, blocktype, ...componentProps } = block
+          const Component = sections[blocktype] || Fallback
+          return <Component key={id} {...(componentProps as any)} />
+        })}
       </Container>
     </Layout>
   )

@@ -14,6 +14,16 @@ export default {
       type: 'string',
     },
     {
+      name: 'kicker',
+      title: 'Kicker',
+      type: 'string',
+    },
+    {
+      name: 'intro',
+      title: 'Intro',
+      type: 'string',
+    },
+    {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
@@ -35,7 +45,11 @@ export default {
       of: [
         {
           type: 'reference',
-          to: [{ type: 'homepageHero' }, { type: 'homepageMarkdown' }],
+          to: [
+            { type: 'homepageHero' },
+            { type: 'homepageMarkdown' },
+            { type: 'horizontalSection' },
+          ],
         },
       ],
     },

@@ -5,7 +5,12 @@ export default {
   title: 'Person Info',
   type: 'document',
   fields: [
-    { title: 'Image', name: 'image', type: 'image' },
+    {
+      title: 'Image',
+      name: 'image',
+      type: 'image',
+      options: { hotspot: true },
+    },
     { title: 'Name', name: 'name', type: 'string' },
     {
       title: 'About Description',

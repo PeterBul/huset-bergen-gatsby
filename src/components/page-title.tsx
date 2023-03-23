@@ -1,5 +1,5 @@
 import { Box, Breadcrumb, BreadcrumbItem, Heading } from '@chakra-ui/react'
-import { Link } from './ui'
+import { Kicker, Link } from './ui'
 
 interface IPillProps {
   children: React.ReactNode
@@ -12,16 +12,16 @@ const Pill = (props: IPillProps) => (
 
 interface IPageTitleProps {
   title: string
+  kicker?: string
   crumbs?: { href: string | null; text: string }[]
 }
 
 export function PageTitle(props: IPageTitleProps) {
   const { title, crumbs } = props
   return (
-    <>
-      <Heading as="h1" textAlign="center">
-        {title}
-      </Heading>
+    <Box textAlign="center">
+      {props.kicker && <Kicker>{props.kicker}</Kicker>}
+      <Heading as="h1">{title}</Heading>
       {crumbs && (
         <Breadcrumb display="flex" justifyContent="center" mt={3} mb={20}>
           {crumbs.map((crumb) => (
@@ -37,6 +37,6 @@ export function PageTitle(props: IPageTitleProps) {
           ))}
         </Breadcrumb>
       )}
-    </>
+    </Box>
   )
 }

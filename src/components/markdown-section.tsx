@@ -1,10 +1,7 @@
-import { Box, chakra, Flex } from '@chakra-ui/react'
-import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { PortableText } from '@portabletext/react'
 import { graphql } from 'gatsby'
-import React from 'react'
-import { Container, Heading, Section, Subhead } from './ui'
+import { Container, Heading, Section } from './ui'
 
 export interface IMarkdownSectionProps {
   heading: string

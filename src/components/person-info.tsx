@@ -21,18 +21,18 @@ const Dummy = styled('div')`
   margin-top: 100%;
 `
 
+// @ts-ignore
+const StyledImage = styled(SanityImage)`
+  border-radius: 50%;
+`
+
 export default function PersonInfo(props: IPersonInfoProps) {
   const { name, jobTitle, email, image } = props
   return (
     <Flex flexDir="column" width="33.33333%" padding="8">
       {image && (
         <>
-          <ImageCropper>
-            <Dummy />
-            <Box position="absolute" top={0} bottom={0} left={0} right={0}>
-              <SanityImage {...image} width={200} />
-            </Box>
-          </ImageCropper>
+          <StyledImage {...image} width={200} height={200} />
           <Space size={3} />
         </>
       )}

@@ -1,25 +1,54 @@
-import { Box, Container, Flex, Grid, Text } from '@chakra-ui/react'
+import {
+  Box,
+  Card,
+  CardBody,
+  Container,
+  Flex,
+  Tag,
+  Text,
+} from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import { graphql } from 'gatsby'
-import BackgroundImage from 'gatsby-background-image'
-import { GatsbyImage } from 'gatsby-plugin-image'
+import moment from 'moment'
 import Layout from '../components/layout'
-import { HomepageImage, ISanityImage } from '../components/ui'
+import { PageTitle } from '../components/page-title'
+import {
+  ISanityImage,
+  Kicker,
+  Link,
+  Space,
+  SubheadSmall,
+} from '../components/ui'
 
 export interface ICategoryArticlesProps {
   data: {
     pages: {
-      nodes: { title: string; image: ISanityImage }[]
+      nodes: {
+        title: string
+        slug: string
+        publishDate: string | null
+        kicker: string | null
+        intro: string | null
+        image: ISanityImage
+      }[]
     }
+    category: { label: string } | null
   }
 }
 export const query = graphql`
   query CategoryArticlesTemplate($slug: String!) {
-    pages: allArticlePage(
+    category: sanityCategory(slug: { eq: $slug }) {
+      label
+    }
+    pages: allSanityArticlePage(
       filter: { categories: { elemMatch: { slug: { eq: $slug } } } }
     ) {
       nodes {
         title
+        slug
+        kicker
+        intro
+        publishDate
         image {
           asset {
             gatsbyImageData(width: 340, height: 210)
@@ -31,40 +60,76 @@ export const query = graphql`
   }
 `
 
-const StyledImage = styled(GatsbyImage)`
-  border-radius: 10px 10px 0px 0px;
+const borderRadius = '20px'
+const maxWidth = '340px'
+
+const StyledLink = styled(Link)`
+  display: flex;
   width: 100%;
+  height: 100%;
+  max-width: ${maxWidth};
+  border-radius: ${borderRadius};
 `
 
+console.log(moment.locale('nb'))
 export default function CategoryArticles(props: ICategoryArticlesProps) {
+  const pages = props.data.pages.nodes.filter(
+    (n) => n.publishDate && moment(n.publishDate).isSameOrBefore(moment())
+  )
   return (
     <Layout>
       <Container maxW="container.xl">
-        <Flex justifyContent="center" alignItems="stretch" flexWrap="wrap">
-          {props.data.pages.nodes.concat(props.data.pages.nodes).map((n) => (
-            <Box w="33.3333%" p={5} h="500px">
-              <Box
-                bg="background.400"
-                w="100%"
-                maxW="340px"
-                h="100%"
-                borderRadius="2xl"
-                overflow="hidden"
-              >
+        <PageTitle kicker={'Kategori'} title={props.data.category?.label} />
+        <Space size={5} />
+        <Box
+          display={{ md: 'flex' }}
+          justifyContent="center"
+          alignItems="stretch"
+          flexWrap="wrap"
+        >
+          {pages.map((n) => (
+            <Flex
+              w={{ md: '33.333333%' }}
+              minW={{ md: '360px' }}
+              p={5}
+              h="600px"
+              justifyContent="center"
+            >
+              <StyledLink to={`/artikler/${n.slug}`}>
                 <Box
-                  backgroundImage={
-                    n.image.asset.gatsbyImageData.images.fallback.src
-                  }
-                  width="100%"
-                  height="200px"
-                />
-                <Text p={5} mb={2}>
-                  {n.title}
-                </Text>
-              </Box>
-            </Box>
+                  w="100%"
+                  h="100%"
+                  borderRadius={borderRadius}
+                  overflow="hidden"
+                  bg="background.700"
+                >
+                  <Box
+                    backgroundImage={
+                      n.image.asset.gatsbyImageData.images.fallback.src
+                    }
+                    width="100%"
+                    minH="200px"
+                    height="200px"
+                  />
+                  <Tag size="sm" mt={3} ml={3}>
+                    {moment(n.publishDate).format('DD. MMMM YYYY')}
+                  </Tag>
+                  <Box p={5}>
+                    <Flex h={4} alignItems="flex-end">
+                      {n.kicker && <Kicker my={0}>{n.kicker}</Kicker>}
+                    </Flex>
+                    <SubheadSmall mt={1}>{n.title}</SubheadSmall>
+                    {n.intro && (
+                      <Text fontSize="md" noOfLines={8}>
+                        {n.intro}
+                      </Text>
+                    )}
+                  </Box>
+                </Box>
+              </StyledLink>
+            </Flex>
           ))}
-        </Flex>
+        </Box>
       </Container>
     </Layout>
   )

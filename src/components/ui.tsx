@@ -17,6 +17,7 @@ import {
   Text as ChakraText,
   Heading as ChakraHeading,
   Button as ChakraButton,
+  HeadingProps,
 } from '@chakra-ui/react'
 
 export const cx = (...args: (string | undefined)[]) =>
@@ -287,16 +288,24 @@ export function SuperHeading({
   return <ChakraHeading as="h1" variant="superHeading" {...props} />
 }
 
-export function Heading({ ...props }: PropsOf<typeof ChakraHeading>) {
+export function Heading({ ...props }: HeadingProps) {
   return <ChakraHeading as="h2" variant="heading" {...props} />
 }
 
-export function Subhead({ ...props }) {
+export function Subhead({ ...props }: HeadingProps) {
   return <ChakraHeading as="h3" variant="subhead" {...props} />
 }
 
-export function Kicker({ ...props }) {
-  return <Text variant="kicker" {...props} />
+export function SubheadSmall({ ...props }: HeadingProps) {
+  return <ChakraHeading as="h4" variant="subheadSmall" {...props} />
+}
+
+export function Kicker({ ...props }: HeadingProps) {
+  return <ChakraHeading variant="kicker" {...props} />
+}
+
+export function SectionTitle({ ...props }: HeadingProps) {
+  return <ChakraHeading variant="section-title" {...props} />
 }
 
 interface LinkProps extends BaseProps {

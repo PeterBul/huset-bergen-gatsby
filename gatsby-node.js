@@ -1,4 +1,5 @@
 const sanityBlockContentToHTML = require('@sanity/block-content-to-html')
+const moment = require('moment')
 
 exports.onCreateBabelConfig = ({ actions }) => {
   actions.setBabelPreset({
@@ -83,6 +84,10 @@ exports.createSchemaCustomization = async ({ actions, schema }) => {
   actions.createTypes(/* GraphQL */ `
     type allHomepageCarousel implements Node {
       text: String
+    }
+
+    interface Typed {
+      blocktype: String
     }
 
     interface HomepageBlock implements Node {
@@ -266,6 +271,11 @@ exports.createSchemaCustomization = async ({ actions, schema }) => {
       kicker: String
       text: String
       content: [HomepageProduct]
+    }
+
+    interface HorizontalSection implements Node & HomepageBlock {
+      id: ID!
+      blocktype: String
     }
 
     interface Homepage implements Node {
@@ -452,11 +462,17 @@ exports.createSchemaCustomization = async ({ actions, schema }) => {
       links: [HomepageLink] @link
     }
 
-    type SanityHomepageMarkdown implements Node & HomepageMarkdown & HomepageBlock {
+    type SanityHomepageMarkdown implements Node & HomepageMarkdown & HomepageBlock & Typed {
       id: ID!
       blocktype: String @blocktype
       heading: String
       blockContent: JSON @sanityReactBlockContent(fieldName: "content")
+    }
+
+    type SanityHorizontalSection implements Node & HorizontalSection & HomepageBlock {
+      id: ID!
+      blocktype: String @blocktype
+      content: [Typed]
     }
 
     type SanityHomepageCarousel implements Node & HomepageCarousel & HomepageBlock
@@ -728,6 +744,10 @@ exports.createSchemaCustomization = async ({ actions, schema }) => {
       image: HomepageImage @link(by: "id", from: "image.asset._ref")
       html: String! @sanityBlockContent(fieldName: "content")
     }
+
+    type SanityImage implements Typed {
+      blocktype: String @blocktype
+    }
   `)
 }
 
@@ -790,7 +810,7 @@ async function createArticlePages(graphql, createPage) {
         // publishedAt
       } = node
       // const dateSegment = format(new Date(publishedAt), 'yyyy/MM')
-      const path = `/articles/${slug}/`
+      const path = `/artikler/${slug}/`
 
       createPage({
         path,
@@ -817,7 +837,7 @@ async function createCategoryPages(graphql, createPage) {
 
   categoryNodes.forEach((node) => {
     const { slug } = node
-    const path = `/categories/${slug}/`
+    const path = `/kategorier/${slug}/`
 
     createPage({
       path,

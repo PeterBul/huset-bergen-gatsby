@@ -39,6 +39,7 @@ import personInfo from './personInfo'
 import peopleInfo from './peopleInfo'
 import departmentPage from './departmentPage'
 import articlePage from './documents/articlePage'
+import horizontal from './documents/horizontalSection'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default [
@@ -86,4 +87,5 @@ export default [
   peopleInfo,
   personInfo,
   category,
+  horizontal,
 ]

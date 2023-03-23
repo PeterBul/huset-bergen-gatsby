@@ -14,6 +14,8 @@ import { AboutLogoListProps } from './about-logo-list'
 import { CarouselProps } from './carsousel-section'
 import { IMarkdownSectionProps } from './markdown-section'
 import { IAboutPeopleProps } from './people-info'
+import { ISanityImage } from './ui'
+import { IHorizontalSectionProps } from './horizontal-section'
 
 export { default as HomepageHero } from './hero'
 export { default as HomepageFeatureList } from './feature-list'
@@ -30,6 +32,7 @@ export { default as AboutLogoList } from './about-logo-list'
 export { default as HomepageCarousel } from './carsousel-section'
 export { default as HomepageMarkdown } from './markdown-section'
 export { default as PeopleInfo } from './people-info'
+export { default as HorizontalSection } from './horizontal-section'
 
 export type SectionProps =
   | HeroProps
@@ -47,6 +50,7 @@ export type SectionProps =
   | CarouselProps
   | IMarkdownSectionProps
   | IAboutPeopleProps
+  | IHorizontalSectionProps
 
 type Blocktypes =
   | 'HomepageHero'
@@ -64,11 +68,29 @@ type Blocktypes =
   | 'HomepageCarousel'
   | 'HomepageMarkdown'
   | 'PeopleInfo'
+  | 'HorizontalSection'
+
+type Types = 'Image'
 
 type WithBlocktype<B = Blocktypes, P = SectionProps> = {
   id: string
   blocktype: B
 } & P
+
+type Typed<B = Blocktypes | Types, P = SectionProps> = {
+  id: string
+  blocktype: B
+} & P
+
+type HomepageMarkdownBlock = WithBlocktype<
+  'HomepageMarkdown',
+  IMarkdownSectionProps
+>
+
+type HorizontalSectionBlock = WithBlocktype<
+  'HorizontalSection',
+  IHorizontalSectionProps
+>
 
 export type HomepageBlock =
   | WithBlocktype<'HomepageHero', HeroProps>
@@ -84,7 +106,8 @@ export type HomepageBlock =
   | WithBlocktype<'AboutLeadership', AboutLeadershipProps>
   | WithBlocktype<'AboutLogoList', AboutLogoListProps>
   | WithBlocktype<'HomepageCarousel', CarouselProps>
-  | WithBlocktype<'HomepageMarkdown', IMarkdownSectionProps>
+  | HomepageMarkdownBlock
+  | HorizontalSectionBlock
 
 export type DepartmentBlock =
   | WithBlocktype<'PeopleInfo', IAboutPeopleProps>
@@ -94,3 +117,7 @@ export type ArticleBlock = WithBlocktype<
   'HomepageMarkdown',
   IMarkdownSectionProps
 >
+
+export type HorizontalSectionContent =
+  | HomepageMarkdownBlock
+  | Typed<'Image', ISanityImage>
