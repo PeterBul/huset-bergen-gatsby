@@ -1,10 +1,9 @@
 import { graphql } from 'gatsby'
-import { GatsbyImage } from 'gatsby-plugin-image'
 import { Container, Section } from './ui'
 import * as components from './components'
 import type { HorizontalSectionContent } from './sections'
 import Fallback from './fallback'
-import { Box, Flex } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 import SanityImage from 'gatsby-plugin-sanity-image'
 
 export interface IHorizontalSectionProps {
@@ -16,30 +15,34 @@ export default function HorizontalSection(props: IHorizontalSectionProps) {
   return (
     <Section>
       <Container>
-        <Flex>
+        <Flex flexWrap="wrap">
           {props.content.map((e, i) => {
             const isFirst = i === 0
             const isLast = i === props.content.length - 1
+            const m = 10
+            const margins = { mb: m, ml: !isFirst && m, mr: !isLast && m }
             switch (e.blocktype) {
               case 'Image': {
                 console.log('Image', e)
                 return (
-                  <Box width="500px" flex={1}>
-                    <SanityImage width={500} {...e} />
-                  </Box>
+                  <Flex minW="300px" alignItems="center" flex={1} {...margins}>
+                    <SanityImage width={1000} {...e} />
+                  </Flex>
                 )
               }
               default: {
                 const { id, blocktype, ...componentProps } = e
                 const Component = components[blocktype] || Fallback
-                const m = 20
                 return (
                   <Component
                     key={id}
                     flex={1}
+                    display="flex"
+                    flexDir="column"
+                    justifyContent="center"
+                    minW="300px"
                     {...(componentProps as any)}
-                    ml={!isFirst ? m : undefined}
-                    mr={!isLast ? m : undefined}
+                    {...margins}
                   />
                 )
               }
