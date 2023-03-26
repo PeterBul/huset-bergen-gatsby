@@ -89,14 +89,6 @@ const components = {
         marginTop: 3,
         marginBottom: 4,
       },
-      heading: {
-        marginBottom: baseTheme.space[4],
-        fontFamily: baseTheme.heading,
-        fontSize: baseTheme.fontSizes['3xl'],
-        fontWeight: baseTheme.fontWeights.bold,
-        lineHeight: baseTheme.lineHeights.shorter,
-        letterSpacing: baseTheme.letterSpacings.tight,
-      },
       superHeading: {
         marginTop: baseTheme.space[8],
         marginBottom: baseTheme.space[32],
@@ -104,6 +96,14 @@ const components = {
         fontFamily: fonts.heading,
         fontWeight: baseTheme.fontWeights.extrabold,
         lineHeight: baseTheme.lineHeights.heading,
+        letterSpacing: baseTheme.letterSpacings.tight,
+      },
+      heading: {
+        marginBottom: baseTheme.space[4],
+        fontFamily: baseTheme.heading,
+        fontSize: baseTheme.fontSizes['4xl'],
+        fontWeight: baseTheme.fontWeights.bold,
+        lineHeight: baseTheme.lineHeights.shorter,
         letterSpacing: baseTheme.letterSpacings.tight,
       },
       subhead: {
@@ -115,7 +115,7 @@ const components = {
       },
       subheadSmall: {
         marginBottom: baseTheme.space[3],
-        fontSize: baseTheme.fontSizes['3xl'],
+        fontSize: baseTheme.fontSizes['2xl'],
         fontWeight: baseTheme.fontWeights.extrabold,
         lineHeight: baseTheme.lineHeights.tight,
         letterSpacing: baseTheme.letterSpacings.tight,

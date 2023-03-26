@@ -16,6 +16,8 @@ import { IMarkdownSectionProps } from './markdown-section'
 import { IAboutPeopleProps } from './people-info'
 import { ISanityImage } from './ui'
 import { IHorizontalSectionProps } from './horizontal-section'
+import { IFaqProps } from './faq'
+import { IMembershipFormProps } from './membership-form'
 
 export { default as HomepageHero } from './hero'
 export { default as HomepageFeatureList } from './feature-list'
@@ -78,7 +80,6 @@ type WithBlocktype<B = Blocktypes, P = SectionProps> = {
 } & P
 
 type Typed<B = Blocktypes | Types, P = SectionProps> = {
-  id: string
   blocktype: B
 } & P
 
@@ -90,6 +91,19 @@ type HomepageMarkdownBlock = WithBlocktype<
 type HorizontalSectionBlock = WithBlocktype<
   'HorizontalSection',
   IHorizontalSectionProps
+>
+
+type FaqBlock = WithBlocktype<'Faq', IFaqProps>
+type FormBlock = WithBlocktype<'Form', IMembershipFormProps>
+
+type HorizontalSectionElement = Typed<
+  'HorizontalSectionElement',
+  { fraction: number; element: HomepageMarkdownBlock | FaqBlock | FormBlock }
+>
+
+type FractionedImage = Typed<
+  'FractionedImage',
+  { fraction: number; image: ISanityImage }
 >
 
 export type HomepageBlock =
@@ -119,5 +133,5 @@ export type ArticleBlock = WithBlocktype<
 >
 
 export type HorizontalSectionContent =
-  | HomepageMarkdownBlock
-  | Typed<'Image', ISanityImage>
+  | HorizontalSectionElement
+  | FractionedImage

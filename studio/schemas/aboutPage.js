@@ -16,9 +16,9 @@ export default {
           to: [
             { type: 'aboutHero' },
             { type: 'aboutStatList' },
-            { type: 'homepageProductList' },
-            { type: 'aboutLeadership' },
-            { type: 'homepageBenefitList' },
+            // { type: 'homepageProductList' },
+            // { type: 'aboutLeadership' },
+            // { type: 'homepageBenefitList' },
             { type: 'aboutLogoList' },
             { type: 'homepageCta' },
             { type: 'peopleInfo' },

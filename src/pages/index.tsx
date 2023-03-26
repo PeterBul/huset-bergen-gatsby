@@ -1,10 +1,8 @@
-import * as React from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
 import * as sections from '../components/sections'
 import Fallback from '../components/fallback'
 import SEOHead from '../components/head'
-import { ThemeToggleButton } from '../components/theme-toggle-button'
 import { HeroProps } from '../components/hero'
 
 export interface IImage {

@@ -1,12 +1,12 @@
 export default {
-  name: "contextImage",
-  title: "Image with description",
-  type: "document",
+  name: 'contextImage',
+  title: 'Image with description',
+  type: 'document',
   fields: [
     {
-      title: "Image",
-      name: "image",
-      type: "image",
+      title: 'Image',
+      name: 'image',
+      type: 'image',
       // fields: [
       //   {
       //     name: "alt",
@@ -19,29 +19,29 @@ export default {
       // ],
     },
     {
-      title: "Alt",
-      name: "alt",
-      type: "string",
+      title: 'Alt',
+      name: 'alt',
+      type: 'string',
       description: `Text used by for example screen readers 
     and people that for some reason not can see the image`,
     },
     {
-      title: "Heading",
-      name: "heading",
-      type: "string",
+      title: 'Heading',
+      name: 'heading',
+      type: 'string',
     },
     {
-      title: "Description",
-      name: "desc",
-      type: "string",
-      description: "Text that will accompany image",
+      title: 'Description',
+      name: 'desc',
+      type: 'string',
+      description: 'Text that will accompany image',
       rows: 20,
     },
     {
-      title: "Link",
-      name: "link",
-      type: "reference",
-      to: [{ type: "homepageLink" }],
+      title: 'Link',
+      name: 'link',
+      type: 'reference',
+      to: [{ type: 'homepageLink' }],
     },
   ],
 }

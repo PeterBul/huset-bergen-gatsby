@@ -17,29 +17,45 @@ export default function HorizontalSection(props: IHorizontalSectionProps) {
       <Container>
         <Flex flexWrap="wrap">
           {props.content.map((e, i) => {
+            console.log('element', e)
+            if (e === null) {
+              return null
+            }
             const isFirst = i === 0
             const isLast = i === props.content.length - 1
             const m = 10
-            const margins = { mb: m, ml: !isFirst && m, mr: !isLast && m }
+            const margins = { m: 5 } // { mb: m, ml: !isFirst && m, mr: !isLast && m }
             switch (e.blocktype) {
-              case 'Image': {
-                console.log('Image', e)
+              case 'FractionedImage': {
+                const { fraction, image } = e
                 return (
-                  <Flex minW="300px" alignItems="center" flex={1} {...margins}>
-                    <SanityImage width={1000} {...e} />
+                  <Flex
+                    key={i}
+                    minW="300px"
+                    alignItems="center"
+                    flex={fraction || 1}
+                    {...margins}
+                  >
+                    <SanityImage width={1000} {...image} />
                   </Flex>
                 )
               }
               default: {
-                const { id, blocktype, ...componentProps } = e
+                const { fraction, element } = e
+                if (!element) {
+                  return null
+                }
+                const { blocktype, ...componentProps } = element
                 const Component = components[blocktype] || Fallback
                 return (
                   <Component
-                    key={id}
-                    flex={1}
+                    key={i}
+                    flex={fraction || 1}
                     display="flex"
                     flexDir="column"
-                    justifyContent="center"
+                    justifyContent={
+                      blocktype === 'Faq' ? 'flex-start' : 'center'
+                    }
                     minW="300px"
                     {...(componentProps as any)}
                     {...margins}
@@ -60,9 +76,20 @@ export const query = graphql`
     title
     content {
       blocktype
-      ...HomepageMarkdownContent
-      ... on SanityImage {
-        ...ImageWithPreview
+      ... on SanityHorizontalSectionElement {
+        fraction
+        element {
+          blocktype
+          ...HomepageMarkdownContent
+          ...FaqContent
+          ...FormContent
+        }
+      }
+      ... on SanityFractionedImage {
+        fraction
+        image {
+          ...ImageWithPreview
+        }
       }
     }
   }

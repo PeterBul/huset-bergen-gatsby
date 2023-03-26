@@ -40,6 +40,14 @@ import peopleInfo from './peopleInfo'
 import departmentPage from './departmentPage'
 import articlePage from './documents/articlePage'
 import horizontal from './documents/horizontalSection'
+import faq from './documents/faq'
+import questionAndAnswer from './objects/questionAndAnswer'
+import membershipPage from './documents/membershipPage'
+import form from './documents/form'
+import horizontalSectionElement from './horizontalSectionElement'
+import fraction from './objects/fraction'
+import categoryElement from './objects/categoryElement'
+import fractionedImage from './fractionedImage'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default [
@@ -55,12 +63,12 @@ export default [
   homepageMarkdown,
   homepageTestimonial,
   homepageTestimonialList,
-  homepageBenefit,
-  homepageBenefitList,
-  homepageStat,
-  homepageStatList,
-  homepageProduct,
-  homepageProductList,
+  // homepageBenefit,
+  // homepageBenefitList,
+  // homepageStat,
+  // homepageStatList,
+  // homepageProduct,
+  // homepageProductList,
   // elements
   contextImage,
   // layout
@@ -78,7 +86,7 @@ export default [
   aboutStat,
   aboutStatList,
   aboutProfile,
-  aboutLeadership,
+  // aboutLeadership,
   aboutLogoList,
   // other pages
   articlePage,
@@ -87,5 +95,14 @@ export default [
   peopleInfo,
   personInfo,
   category,
+  faq,
   horizontal,
+  questionAndAnswer,
+  // Membership page
+  membershipPage,
+  horizontalSectionElement,
+  fraction,
+  fractionedImage,
+  form,
+  categoryElement,
 ]

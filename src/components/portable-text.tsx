@@ -4,7 +4,7 @@ import { PortableText } from '@portabletext/react'
 import { Heading } from './ui'
 
 export interface IPortableTextProps {
-  heading: string
+  heading?: string
   blockContent: any
 }
 
@@ -21,7 +21,7 @@ export default function PortableTextComponent({
 }: IPortableTextProps & ChakraProps) {
   return (
     <Box {...chakraProps}>
-      <Heading>{heading}</Heading>
+      {heading && <Heading>{heading}</Heading>}
       <PortableTextWrapper>
         <PortableText value={blockContent} />
       </PortableTextWrapper>

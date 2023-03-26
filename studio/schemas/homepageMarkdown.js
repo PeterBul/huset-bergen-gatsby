@@ -15,5 +15,6 @@ export default {
       type: 'array',
       of: [{ type: 'block' }],
     },
+    { type: 'fraction', name: 'fraction' },
   ],
 }
