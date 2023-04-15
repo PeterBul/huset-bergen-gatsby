@@ -139,18 +139,23 @@ export default function Header() {
           <nav>
             <FlexList gap={4}>
               {navItems &&
-                navItems.map((navItem) => (
-                  <li key={navItem.id}>
-                    {navItem.navItemType === 'Group' ? (
-                      <NavItemGroup
-                        name={navItem.name}
-                        navItems={navItem.navItems}
-                      />
-                    ) : (
-                      <NavLink to={navItem.href}>{navItem.text}</NavLink>
-                    )}
-                  </li>
-                ))}
+                navItems.map((navItem) => {
+                  if (!navItem) {
+                    return null
+                  }
+                  return (
+                    <li key={navItem.id}>
+                      {navItem.navItemType === 'Group' ? (
+                        <NavItemGroup
+                          name={navItem.name}
+                          navItems={navItem.navItems}
+                        />
+                      ) : (
+                        <NavLink to={navItem.href}>{navItem.text}</NavLink>
+                      )}
+                    </li>
+                  )
+                })}
             </FlexList>
           </nav>
           <ThemeToggleButton />

@@ -20,11 +20,14 @@ interface AboutProps {
 
 export default function Medlemskap(props: AboutProps) {
   const { sanityMembershipPage, sanityForm } = props.data
-  console.log(sanityForm)
 
+  console.log(sanityMembershipPage)
   return (
     <Layout>
       {sanityMembershipPage.blocks.map((block) => {
+        if (!block) {
+          return null
+        }
         const { id, blocktype, ...componentProps } = block
         const Component = sections[blocktype] || Fallback
         return <Component key={id} {...(componentProps as any)} />

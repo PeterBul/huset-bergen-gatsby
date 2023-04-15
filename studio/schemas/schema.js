@@ -44,10 +44,13 @@ import faq from './documents/faq'
 import questionAndAnswer from './objects/questionAndAnswer'
 import membershipPage from './documents/membershipPage'
 import form from './documents/form'
+import verticalBlock from './documents/verticalBlock'
 import horizontalSectionElement from './horizontalSectionElement'
 import fraction from './objects/fraction'
 import categoryElement from './objects/categoryElement'
 import fractionedImage from './fractionedImage'
+import portableText from './objects/portableText'
+import verticalBlockElement from './verticalBlockElement'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default [
@@ -101,8 +104,11 @@ export default [
   // Membership page
   membershipPage,
   horizontalSectionElement,
+  verticalBlockElement,
+  verticalBlock,
   fraction,
   fractionedImage,
   form,
   categoryElement,
+  portableText,
 ]

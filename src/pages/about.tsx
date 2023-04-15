@@ -33,6 +33,9 @@ export default function About(props: AboutProps) {
   return (
     <Layout>
       {aboutPage.blocks.map((block) => {
+        if (!block) {
+          return null
+        }
         const { id, blocktype, ...componentProps } = block
         const Component = sections[blocktype] || Fallback
         return <Component key={id} {...(componentProps as any)} />

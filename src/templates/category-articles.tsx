@@ -71,7 +71,6 @@ const StyledLink = styled(Link)`
   border-radius: ${borderRadius};
 `
 
-console.log(moment.locale('nb'))
 export default function CategoryArticles(props: ICategoryArticlesProps) {
   const pages = props.data.pages.nodes.filter(
     (n) => n.publishDate && moment(n.publishDate).isSameOrBefore(moment())
