@@ -18,6 +18,7 @@ import { ISanityImage } from './ui'
 import { IHorizontalSectionProps } from './horizontal-section'
 import { IFaqProps } from './faq'
 import { IMembershipFormProps } from './membership-form'
+import { IVerticalBlockProps } from './vertical-block'
 
 export { default as HomepageHero } from './hero'
 export { default as HomepageFeatureList } from './feature-list'
@@ -95,10 +96,19 @@ type HorizontalSectionBlock = WithBlocktype<
 
 type FaqBlock = WithBlocktype<'Faq', IFaqProps>
 type FormBlock = WithBlocktype<'Form', IMembershipFormProps>
+type VerticalBlock = WithBlocktype<'VerticalBlock', IVerticalBlockProps>
 
 type HorizontalSectionElement = Typed<
   'HorizontalSectionElement',
-  { fraction: number; element: HomepageMarkdownBlock | FaqBlock | FormBlock }
+  {
+    fraction: number
+    element: HomepageMarkdownBlock | FaqBlock | FormBlock | VerticalBlock
+  }
+>
+
+type VerticalBlockElement = Typed<
+  'VerticalBlockElement',
+  { element: HomepageMarkdownBlock | FaqBlock | FormBlock }
 >
 
 type FractionedImage = Typed<
@@ -135,3 +145,5 @@ export type ArticleBlock = WithBlocktype<
 export type HorizontalSectionContent =
   | HorizontalSectionElement
   | FractionedImage
+
+export type VerticalBlockContent = VerticalBlockElement | ISanityImage

@@ -280,6 +280,14 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
         blocktype: String
       }
 
+      interface MembershipPage implements Node {
+        id: ID!
+        title: String
+        description: String
+        image: SanityImage
+        content: [HorizontalSection]
+      }
+
       interface Homepage implements Node {
         id: ID!
         title: String
@@ -474,7 +482,8 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
       type SanityForm implements Node & HomepageBlock & Typed {
         id: ID!
         blocktype: String @blocktype
-        description: JSON @sanityReactBlockContent(fieldName: "description")
+        descriptionBlockContent: JSON
+          @sanityReactBlockContent(fieldName: "description")
       }
 
       type SanityQuestionAndAnswer {
@@ -487,12 +496,26 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
         content: [Typed]
       }
 
+      type SanityMembershipPage implements Node & MembershipPage {
+        id: ID!
+        title: String
+        description: String
+        image: SanityImage
+        content: [HorizontalSection] @link(from: "content._ref")
+      }
+
       type SanityHomepageCarousel implements Node & HomepageCarousel & HomepageBlock
         @dontInfer {
         id: ID!
         blocktype: String @blocktype
         heading: String
         text: String
+      }
+
+      type SanityVerticalBlock implements Node & HomepageBlock {
+        id: ID!
+        title: String
+        blocktype: String @blocktype
       }
 
       type SanityHomepageFeature implements Node & HomepageFeature & HomepageBlock {
@@ -671,7 +694,7 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
         content: [HomepageBlock]
       }
 
-      type SanityCategory implements Category {
+      type SanityCategory implements Node & Category {
         id: ID!
         label: String
         slug: String! @proxy(from: "slug.current")
@@ -767,6 +790,11 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
       }
 
       type SanityHorizontalSectionElement implements Typed {
+        blocktype: String @blocktype
+        element: HomepageBlock
+      }
+
+      type SanityVerticalBlockElement implements Typed {
         blocktype: String @blocktype
         element: HomepageBlock
       }

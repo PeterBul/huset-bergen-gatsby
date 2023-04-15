@@ -67,14 +67,19 @@ export default function Article(props: IArticleProps) {
     categories && categories.length > 0
       ? [{ href: '/' as string | null, text: 'Forside' }]
           .concat(
-            categories.map((c) => ({
-              href: `/kategorier/${c.slug}`,
-              text: c.label,
-            }))
+            categories.map((c) => {
+              if (!c) {
+                return null
+              }
+              return {
+                href: `/kategorier/${c.slug}`,
+                text: c.label,
+              }
+            })
           )
+          .filter((c) => c !== null)
           .concat([{ text: title, href: null }])
       : undefined
-  console.log(image)
   return (
     <Layout>
       <Container>
@@ -91,7 +96,6 @@ export default function Article(props: IArticleProps) {
           </Text>
         )}
         {blocks.map((block) => {
-          console.log('block', block)
           if (!block) {
             return null
           }

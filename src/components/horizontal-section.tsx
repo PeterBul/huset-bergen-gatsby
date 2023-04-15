@@ -54,7 +54,9 @@ export default function HorizontalSection(props: IHorizontalSectionProps) {
                     display="flex"
                     flexDir="column"
                     justifyContent={
-                      blocktype === 'Faq' ? 'flex-start' : 'center'
+                      blocktype === 'Faq' || blocktype === 'VerticalBlock'
+                        ? 'flex-start'
+                        : 'center'
                     }
                     minW="300px"
                     {...(componentProps as any)}
@@ -83,6 +85,7 @@ export const query = graphql`
           ...HomepageMarkdownContent
           ...FaqContent
           ...FormContent
+          ...VerticalBlockContent
         }
       }
       ... on SanityFractionedImage {

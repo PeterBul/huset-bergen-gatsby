@@ -7,9 +7,10 @@ export default {
       type: 'reference',
       name: 'element',
       to: [
-        // { type: 'faq' },
+        { type: 'faq' },
         { type: 'homepageMarkdown' },
-        //  { type: 'form' }
+        { type: 'form' },
+        { type: 'verticalBlock' },
       ],
     },
     { type: 'fraction', name: 'fraction' },

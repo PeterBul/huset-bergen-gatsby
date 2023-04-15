@@ -1,5 +1,5 @@
 export default {
-  name: 'membershipForm',
+  name: 'form',
   title: 'Form',
   type: 'document',
   fields: [
@@ -8,8 +8,7 @@ export default {
     {
       title: 'Description',
       name: 'description',
-      type: 'array',
-      of: [{ type: 'block' }, { type: 'image' }],
+      type: 'portableText',
     },
     {
       name: 'category',

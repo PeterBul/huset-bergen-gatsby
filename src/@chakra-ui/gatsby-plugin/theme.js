@@ -41,7 +41,6 @@ const components = {
     },
     variants: {
       primary: (props) => {
-        console.log(props)
         return {
           color: mode(lightBg, darkBg)(props),
           backgroundColor: props.theme.colors.primary,

@@ -13,12 +13,14 @@ interface IInputFormFieldProps {
   placeholder: string
   isMultiline?: boolean
   validate?: (value: string) => string | undefined
+  type?: React.HTMLInputTypeAttribute
 }
 
 export default function InputFormField(
   props: IInputFormFieldProps & ChakraProps
 ) {
-  const { name, placeholder, isMultiline, validate, ...chakraProps } = props
+  const { name, placeholder, isMultiline, validate, type, ...chakraProps } =
+    props
   return (
     <Box flex={1} {...chakraProps}>
       <Field name={name} validate={validate}>
@@ -30,7 +32,7 @@ export default function InputFormField(
             {isMultiline ? (
               <Textarea {...field} placeholder={placeholder} />
             ) : (
-              <Input {...field} placeholder={placeholder} />
+              <Input {...field} placeholder={placeholder} type={type} />
             )}
             <FormErrorMessage>{form.errors[name]}</FormErrorMessage>
           </FormControl>

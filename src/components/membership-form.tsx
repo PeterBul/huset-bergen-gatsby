@@ -1,20 +1,14 @@
-import {
-  Box,
-  Button,
-  chakra,
-  ChakraProps,
-  Flex,
-  FormControl,
-  Input,
-} from '@chakra-ui/react'
-import { Field, Form, Formik } from 'formik'
+import { Box, Button, ChakraProps, Flex } from '@chakra-ui/react'
+import { Form, Formik } from 'formik'
 import { graphql } from 'gatsby'
 import InputFormField from './membership-page/input-form-field'
+import PortableTextComponent from './portable-text'
+import { Subhead } from './ui'
 
 export interface IMembershipFormProps {
   title: string
   heading: string
-  description: object[]
+  descriptionBlockContent: object[]
   category: {
     value: string
     title: string
@@ -34,7 +28,7 @@ export default function MembershipForm(
   const {
     title,
     heading,
-    description,
+    descriptionBlockContent: description,
     category,
     namePlaceholder,
     addressPlaceholder,
@@ -50,8 +44,22 @@ export default function MembershipForm(
       return 'Dette feltet er påkrevd'
     }
   }
+  // TODO: Use a library for email validation
+  function validateEmail(value: string) {
+    const checkMandatory = fieldMandatory(value)
+    if (checkMandatory) {
+      return checkMandatory
+    }
+    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
+      return 'Ugyldig e-postadresse'
+    }
+  }
   return (
     <Box {...chakraProps}>
+      {heading && <Subhead>{heading}</Subhead>}
+      {description && (
+        <PortableTextComponent blockContent={description} mb={4} />
+      )}
       <Formik
         initialValues={{}}
         onSubmit={(values, actions) => {
@@ -60,6 +68,7 @@ export default function MembershipForm(
             actions.setSubmitting(false)
           }, 1000)
         }}
+        isInitialValid={false}
       >
         {(props) => (
           <Form>
@@ -85,7 +94,8 @@ export default function MembershipForm(
             <InputFormField
               name="email"
               placeholder={emailPlaceholder}
-              validate={fieldMandatory}
+              validate={validateEmail}
+              type="email"
             />
             <InputFormField
               name="message"
@@ -113,7 +123,7 @@ export const query = graphql`
   fragment FormContent on SanityForm {
     title
     heading
-    description
+    descriptionBlockContent
     category {
       value
       title
